@@ -1,0 +1,4 @@
+Attention!
+
+Before reading any of these files. PLEASE make sure that you understand how Flask, django, SQL, and Python works.
+That is it for this text file.
