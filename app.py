@@ -1,10 +1,25 @@
 from flask import Flask
+from website.views import views
+from sql import start_sql_manager, stop_sql_manager, execute_query
+import atexit
 
-app = Flask(__name__)
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
 
-if __name__ == "__main__":
+def create_app():
+    app = Flask(__name__, template_folder='template')
+    app.config['SECRET_KEY'] = 'aaaaaaaa'
+
+    app.register_blueprint(views, url_prefix='/') 
+
+    start_sql_manager()
+    atexit.register(stop_sql_manager)
+
+    print("Registering blueprint views")
+    
+    return app
+
+app = create_app()
+
+if __name__ == '__main__':
     app.run(debug=True)
+
