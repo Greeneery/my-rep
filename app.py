@@ -13,8 +13,6 @@ def create_app():
 
     start_sql_manager()
     atexit.register(stop_sql_manager)
-
-    print("Registering blueprint views")
     
     return app
 

@@ -1,48 +1,48 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 
 
-views = Blueprint('views', __name__)
+views = Blueprint('views', __name__, template_folder="template")
 
 @views.route('/')
 def home():
     return render_template("home.html")
 
 @views.route('/browse-page')
-def browsePage():
+def browse():
     return render_template("browse.html")
 
 @views.route('/contact-page')
-def contactPage():
+def contact():
     return render_template("contact.html")
 
 @views.route('/check-out-page')
-def checkoutPage():
+def checkout():
     return render_template("checkout.html")
 
 @views.route('/detail-page')
-def detailPage():
+def detail():
     return render_template("detail.html")
 
 @views.route('/log-in-page')
-def loginPage():
+def login():
     return render_template("login.html")
 
 @views.route('/sign-up-page')
-def browsePage():
+def signup():
     return render_template("signup.html")
 
 @views.route('/favorites-page')
-def favoritesPage():
+def favorites():
     return render_template("favorites.html")
 
 @views.route('/cart-page')
-def cartPage():
+def cart():
     return render_template("cart.html")
 
 @views.route('/email-confirm-page')
-def emailConfirmPage():
+def email_confirm():
     return render_template("emailConfirm.html")
 
 @views.route('/purchase-confirm-page')
-def purchaseConfirmPage():
+def purchase_confirm():
     return render_template("purchaseConfirm.html")
