@@ -11,9 +11,10 @@ def create_app():
 
     app.register_blueprint(views, url_prefix='/') 
 
-    start_sql_manager()
-    init_database()
-    atexit.register(stop_sql_manager)
+    with app.app_context():
+        # Start SQL manager (FIFO queue worker) and initialize DB
+        start_sql_manager()
+        init_database()
     
     return app
 

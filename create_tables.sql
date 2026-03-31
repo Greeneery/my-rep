@@ -2,14 +2,14 @@ CREATE DATABASE IF NOT EXISTS greenery;
 USE greenery;
 
 -- 1. Categories Table (For filtering by plant types)
-CREATE TABLE Categories (
+CREATE TABLE IF NOT EXISTS Categories (
     categoryID INT AUTO_INCREMENT PRIMARY KEY,
     categoryName VARCHAR(100) NOT NULL,
     description TEXT
 );
 
 -- 2. Users Table (Includes Remember Me functionality)
-CREATE TABLE Users (
+CREATE TABLE IF NOT EXISTS Users (
     userID INT AUTO_INCREMENT PRIMARY KEY,
     firstName VARCHAR(50) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
@@ -17,11 +17,11 @@ CREATE TABLE Users (
     passwordHash VARCHAR(255) NOT NULL,
     phone VARCHAR(20),
     shippingAddress TEXT,
-    billingAddress TEXT,
+    billingAddress TEXT
 );
 
 -- 3. Plants Table (Includes attributes for filtering/browse page)
-CREATE TABLE Plants (
+CREATE TABLE IF NOT EXISTS Plants (
     plantID INT AUTO_INCREMENT PRIMARY KEY,
     commonName VARCHAR(100) NOT NULL,
     scientificName VARCHAR(100),
@@ -37,7 +37,7 @@ CREATE TABLE Plants (
     FOREIGN KEY (categoryID) REFERENCES Categories(categoryID)
 );
 -- 4. Favorites Table (Includes the custom Notes feature)
-CREATE TABLE Favorites (
+CREATE TABLE IF NOT EXISTS Favorites (
     favoriteID INT AUTO_INCREMENT PRIMARY KEY,
     userID INT,
     plantID INT,
@@ -47,7 +47,7 @@ CREATE TABLE Favorites (
 );
 
 -- 5. Cart Table (Includes the Gift option)
-CREATE TABLE Cart (
+CREATE TABLE IF NOT EXISTS Cart (
     cartID INT AUTO_INCREMENT PRIMARY KEY,
     userID INT,
     isGift BOOLEAN DEFAULT FALSE, -- From the Cart page layout
@@ -55,7 +55,7 @@ CREATE TABLE Cart (
 );
 
 -- 6. Cart Items
-CREATE TABLE Cart_Items (
+CREATE TABLE IF NOT EXISTS Cart_Items (
     cartItemID INT AUTO_INCREMENT PRIMARY KEY,
     cartID INT,
     plantID INT,
@@ -64,7 +64,7 @@ CREATE TABLE Cart_Items (
     FOREIGN KEY (plantID) REFERENCES Plants(plantID)
 );
 -- 7. Orders Table (Final Transaction)
-CREATE TABLE Orders (
+CREATE TABLE IF NOT EXISTS Orders (
     orderID INT AUTO_INCREMENT PRIMARY KEY,
     userID INT,
     totalAmount DECIMAL(10, 2),
@@ -75,7 +75,7 @@ CREATE TABLE Orders (
 );
 
 -- 8. Order Items (Snapshot of price at purchase)
-CREATE TABLE Order_Items (
+CREATE TABLE IF NOT EXISTS Order_Items (
     orderItemID INT AUTO_INCREMENT PRIMARY KEY,
     orderID INT,
     plantID INT,
@@ -86,10 +86,10 @@ CREATE TABLE Order_Items (
 );
 
 -- 9. Contact Submissions
-CREATE TABLE Contact_Submissions (
+CREATE TABLE IF NOT EXISTS Contact_Submissions (
     submissionID INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
     email VARCHAR(100),
     topic VARCHAR(100),
-    messageText TEXT,
+    messageText TEXT
 );
