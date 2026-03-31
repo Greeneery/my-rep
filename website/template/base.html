@@ -32,23 +32,54 @@
         {% endblock head_extra %}
 
     </head>
-    <body class="d-flex column-flex min-vh-100">
-         {% block body_start %}{% endblock body_start %}
+    <body>
+        {% block body_start %}{% endblock body_start %}
 
-         {% block header %}
-         <nav class="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                
+        {% block header %}
+        <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/"> Greenery草 </a>
+
+                <button
+                    class="navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around"
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target="#mainNav" aria-controls="mainNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="toggler-icon top-bar"></span>
+                    <span class="toggler-icon middle-bar"></span>
+                    <span class="toggler-icon bottom-bar"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <div class="holographic-card">
+                                <a class="nav-link" href="/">Home</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="holographic-card">
+                                <a class="nav-link"
+                                    href="/browse-page">Plants</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="holographic-card">
+                                <a class="nav-link"
+                                    href="/contact-page">Contact Us</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-         </nav>
+        </nav>
+        {% endblock header %}
 
-         {% endblock header %}
-
-         <div class="container">
+        <div class="container">
             {% block content %}{% endblock content %}
-         </div>
+        </div>
 
-         
+        
 
         {% block body_end %}{% endblock body_end %}
     </body>
