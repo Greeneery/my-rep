@@ -2,49 +2,4 @@
 
 {% block content %}
 
-<html>
-
-<div class="container">
-        <section class="info-card">
-            <h2>Information</h2>
-                <p> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-	            <path fill="#ffffff" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 4l-8 5l-8-5V6l8 5l8-5z" />
-                </svg> <i>Email</i></p>
-
-                <p class="detail">greenery@gmail.com</p>
-                <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-	            <path fill="#ffffff" d="M12 11.5A2.5 2.5 0 0 1 9.5 9A2.5 2.5 0 0 1 12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7" />
-                </svg> <i>Location</i></p>
-                <p class="detail">Greenery Corporations</p>
-
-                <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-	            <path fill="#ffffff" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24c1.12.37 2.33.57 3.57.57c.55 0 1 .45 1 1V20c0 .55-.45 1-1 1c-9.39 0-17-7.61-17-17c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1c0 1.25.2 2.45.57 3.57c.11.35.03.74-.25 1.02z" />
-                </svg><i>Phone No</i></p>
-                <p class="detail">123-456-7890</p>
-        </section>
-
-        <section class="form-card">
-            <h1>CONTACT US</h1>
-            <form action="{{ url_for('views.contactPage') }}" method="POST">
-                <div class="input-group">
-                    <label>Name</label>
-                    <input type="text" name="name" required>
-                </div>
-
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" name="email" required>
-                </div>
-
-                <div class="input-group">
-                    <label>What can we do for you?</label>
-                    <textarea class="message-input" name="user_message" required></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn">Submit</button>
-            </form>
-        </section>
- </div>
-</html>
-
 {% endblock %}
