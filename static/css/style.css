@@ -1,7 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Long+Cang&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
 
-.container a {
+.navbar-brand {
+    color: #4d6b3b;
     font-family: Long Cang;
     font-weight: 600;
-    color: #4D6B3B;
+    font-size: 40px;
+}
+
+.navbar {
+    background-color: aliceblue;
+}
+
+.nav-link {
+    color: #4d6b3b;
+    font-family: Cormorant;
+    font-weight: 600;
+    font-size: 20px;
 }

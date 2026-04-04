@@ -22,19 +22,20 @@
         {% block css %}
         <link
             rel="stylesheet"
-            href="{{ url_for('static', filename='css/styles.css') }}" />
+            href="{{ url_for('static', filename='css/style.css') }}" />
         {% endblock css %}
 
         {% block head_extra %}
         {% endblock head_extra %}
 
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         {% block body_start %}{% endblock body_start %}
+        
 
         {% block header %}
         <nav id="navbar"
-            class="navbar navbar-expand-lg navbar-dark bg-dark">
+            class="navbar navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand" href="/"> Greenery草 </a>
 
