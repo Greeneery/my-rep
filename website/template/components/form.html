@@ -1,0 +1,11 @@
+<div class="mb-3">
+	{{ field.label(class_="form-label") }}
+	{{ field(class_="form-control", placeholder=placeholder or "") }}
+	{% if field.errors %}
+	<div class="invalid-feedback d-block">
+		{% for error in field.errors %}
+		{{ error }}
+		{% endfor %}
+	</div>
+	{% endif %}
+</div>
