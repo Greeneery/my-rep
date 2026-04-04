@@ -13,8 +13,6 @@
         <title>{% block title %}Greenery{% endblock title %}</title>
 
         {% block favicon %}
-        <link rel="icon"
-            href="{{ url_for('static', filename='favicon.ico') }}" />
         {% endblock favicon %}
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -28,11 +26,6 @@
         {% endblock css %}
 
         {% block head_extra %}
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Long+Cang&display=swap"
-            rel="stylesheet">
         {% endblock head_extra %}
 
     </head>
