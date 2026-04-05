@@ -28,9 +28,37 @@ def checkout():
 def detail():
     return render_template("detail.html")
 
-@views.route('/log-in-page')
+@views.route('/log-in-page', methods=["GET", "POST"])
 def login():
-    return render_template("logIn.html")
+    form = LoginForm()
+    message = ""
+    
+    if request.method == "POST":
+        if form.validate_on_submit():
+            try:
+                result, status_code = auth.authenticate_user(
+                    form.name.data, form.password.data
+                )
+                if status_code == 200:
+                    print("SUCCESS!")
+                    token = auth.generate_token(
+                        result["user_id"], result["username"]
+                    )
+                    response = redirect(url_for("dashboard"))
+                    response.set_cookie(
+                        "auth_token",
+                        token,
+                        max_age=86400,
+                        httponly=True,
+                        secure=False,
+                        samesite="Lax",
+                    )
+                    return response
+                else:
+                    message = result.get("error", "Login failed")
+            except Exception as e:
+                message = f"Login failed: {str(e)}"
+    return render_template("logIn.html", form=form, message=message)
 
 @views.route('/sign-up-page', methods=['GET','POST'])
 def signup():
@@ -51,7 +79,7 @@ def signup():
                 
                 if status_code == 201:
                     return redirect(
-                        url_for("login",
+                        url_for("log-in-page",
                              message="Account created successfully! Yay! Pls Login. Nyan~",   
                         )
                     )
