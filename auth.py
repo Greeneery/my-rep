@@ -1,11 +1,46 @@
 from datetime import datetime, timedelta
 
 import jwt
-import models
+
 from bcrypt import gensalt, hashpw
 from flask import current_app
+
+import models
 
 def _hash_password(password: str, salt=None):
     if salt is None:
         salt = gensalt();
-    password_hash = hashpw()
+    password_hash = hashpw(password.encode("utf-8"), salt)
+    return password_hash, salt\
+        
+def create_user_account (
+    username, password, password2, first_name, last_name, email
+):
+    if not all([username, password, password2, first_name, last_name, email]):
+        return {"error": "Missing required fields"}, 400
+    if password != password2:
+        return {"error": "Passwords do not match"}, 400
+    if len(password) < 8:
+        return {"error": "Passwords must be at least 8 characters! Dummy!"}, 400
+    
+    existing_user = models.UserBase.get_by_username(username)
+    if existing_user:
+        return {"error": "Username already exists"}, 409
+    
+    password_hash, salt = _hash_password(password)
+    current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    user = models.UserBase(
+        username=username,
+        password_hash=password_hash.decode("utf-8"),
+        password_salt=salt.decode("utf-8"),
+        created_at=current_date,
+    )
+    user.save()
+    
+    return {
+        "message": "User created successfully",
+        "user_id": user.user_id,
+        "username": user.username,
+    }, 201
+    

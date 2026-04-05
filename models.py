@@ -94,22 +94,22 @@ class UserBase(BaseModel):
             self.update()
         return self
 
-    #@classmethod
-    #def get_by_id(cls, user_id):
+    @classmethod
+    def get_by_id(cls, user_id):
         """Get user by ID"""
         query = "SELECT * FROM user_base WHERE user_id = %s"
         result = execute_query(query, (user_id,), fetch="one")
         return cls.from_dict(result) if result else None
 
-    #@classmethod
-    #def get_by_username(cls, username):
+    @classmethod
+    def get_by_username(cls, username):
         """Get user by username"""
         query = "SELECT * FROM user_base WHERE username = %s"
         result = execute_query(query, (username,), fetch="one")
         return cls.from_dict(result) if result else None
 
-    #@classmethod
-    #def get_all(cls):
+    @classmethod
+    def get_all(cls):
         """Get all users"""
         query = "SELECT * FROM user_base ORDER BY username"
         results = execute_query(query, fetch="all")

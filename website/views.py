@@ -1,6 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm, SignupForm
+import models
+import auth
+from sql import execute_query
 
 
 views = Blueprint('views', __name__, template_folder="template")
@@ -32,16 +35,32 @@ def login():
 @views.route('/sign-up-page', methods=['GET','POST'])
 def signup():
     form = SignupForm()
-    msg = ""
-    if form.validate_on_submit():
-        username = form.username.data
-        first_name = form.first_name.data
-        last_name = form.last_name.data
-        email = form.email.data
-        password = form.password.data
-        re_password = form.password2.data
-        
-    return render_template("signup.html")
+    message = ""
+    
+    if request.method == "POST":
+        if form.validate_on_submit():
+            try:
+                result, status_code = auth.create_user_account(
+                    form.username.data,
+                    form.password.data,
+                    form.password2.data,
+                    form.first_name.data,
+                    form.last_name.data,
+                    form.email.data,
+                )
+                
+                if status_code == 201:
+                    return redirect(
+                        url_for("login",
+                             message="Account created successfully! Yay! Pls Login. Nyan~",   
+                        )
+                    )
+                else:
+                    message = result.get("error", "Signup failed")
+            except Exception as e:
+                message = f"Signup failed: {str(e)}"
+                       
+    return render_template("signup.html", form=form, message=message)
 
 @views.route('/favorites-page')
 def favorites():

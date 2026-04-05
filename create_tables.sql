@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS user_base(
     password_hash TEXT NOT NULL,
     password_salt TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    last_login DATETIME,
+    last_login DATETIME
 ); 
 
 -- 3. Plants Table (Includes attributes for filtering/browse page)
