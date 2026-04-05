@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from forms import LoginForm, SignupForm
 
 
 views = Blueprint('views', __name__, template_folder="template")
@@ -31,6 +31,16 @@ def login():
 
 @views.route('/sign-up-page', methods=['GET','POST'])
 def signup():
+    form = SignupForm()
+    msg = ""
+    if form.validate_on_submit():
+        username = form.username.data
+        first_name = form.first_name.data
+        last_name = form.last_name.data
+        email = form.email.data
+        password = form.password.data
+        re_password = form.password2.data
+        
     return render_template("signup.html")
 
 @views.route('/favorites-page')
