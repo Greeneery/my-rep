@@ -9,16 +9,13 @@ CREATE TABLE IF NOT EXISTS Categories (
 );
 
 -- 2. Users Table (Includes Remember Me functionality)
-CREATE TABLE IF NOT EXISTS Users (
-    userID INT AUTO_INCREMENT PRIMARY KEY,
-    firstName VARCHAR(50) NOT NULL,
-    lastName VARCHAR(50) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    passwordHash VARCHAR(255) NOT NULL,
-    phone VARCHAR(20),
-    shippingAddress TEXT,
-    billingAddress TEXT
-);
+CREATE TABLE IF NOT EXISTS accounts (
+    userID INT(11) NOT NULL AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    hased_password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    PRIMARY KEY (userID)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- 3. Plants Table (Includes attributes for filtering/browse page)
 CREATE TABLE IF NOT EXISTS Plants (

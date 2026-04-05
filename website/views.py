@@ -1,4 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 
 views = Blueprint('views', __name__, template_folder="template")
@@ -27,7 +29,7 @@ def detail():
 def login():
     return render_template("logIn.html")
 
-@views.route('/sign-up-page')
+@views.route('/sign-up-page', methods=['GET','POST'])
 def signup():
     return render_template("signup.html")
 
