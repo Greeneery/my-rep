@@ -12,6 +12,9 @@ CREATE TABLE IF NOT EXISTS Categories (
 CREATE TABLE IF NOT EXISTS user_base(
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL UNIQUE,
+    first_name TEXT NOT NULL UNIQUE,
+    last_name TEXT NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
     password_salt TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,

@@ -32,6 +32,9 @@ def create_user_account (
     
     user = models.UserBase(
         username=username,
+        email=email,
+        first_name=first_name,
+        last_name=last_name,
         password_hash=password_hash.decode("utf-8"),
         password_salt=salt.decode("utf-8"),
         created_at=current_date,

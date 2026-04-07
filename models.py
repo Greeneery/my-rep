@@ -57,6 +57,9 @@ class UserBase(BaseModel):
     def __init__(
         self,
         username: str,
+        email: str,
+        first_name: str,
+        last_name: str,
         password_hash: str,
         password_salt: str,
         created_at: str | None = None,
@@ -65,6 +68,9 @@ class UserBase(BaseModel):
     ):
         self.user_id = user_id
         self.username = username
+        self.email = email
+        self.first_name = first_name
+        self.last_name = last_name
         self.password_hash = password_hash
         self.password_salt = password_salt
         self.created_at = created_at
@@ -78,11 +84,14 @@ class UserBase(BaseModel):
         if self.user_id is None:
             # INSERT
             query = """
-            INSERT INTO user_base (username, password_hash, password_salt, created_at, last_login)
-            VALUES (%s, %s, %s, %s, %s)
+            INSERT INTO user_base (username, email, first_name, last_name, password_hash, password_salt, created_at, last_login)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
             """
             params = (
                 self.username,
+                self.email,
+                self.first_name,
+                self.last_name,
                 self.password_hash,
                 self.password_salt,
                 self.created_at,
@@ -119,11 +128,14 @@ class UserBase(BaseModel):
         """Update user in database"""
         query = """
         UPDATE user_base 
-        SET username=%s, password_hash=%s, password_salt=%s, created_at=%s, last_login=%s
+        SET username=%s, email=%s, first_name=%s, last_name=%s, password_hash=%s, password_salt=%s, created_at=%s, last_login=%s
         WHERE user_id=%s
         """
         params = (
             self.username,
+            self.email,
+            self.first_name,
+            self.last_name,
             self.password_hash,
             self.password_salt,
             self.created_at,
