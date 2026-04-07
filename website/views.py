@@ -16,11 +16,15 @@ def home():
 
 @views.route('/browse-page')
 def browse():
-    return render_template("browse.html")
+    token = request.cookies.get("auth_token")
+    user_data, error = auth.verify_token(token)
+    return render_template("browse.html", user = user_data)
 
 @views.route('/contact-page')
 def contact():
-    return render_template("contact.html")
+    token = request.cookies.get("auth_token")
+    user_data, error = auth.verify_token(token)
+    return render_template("contact.html", user = user_data)
 
 @views.route('/check-out-page')
 def checkout():

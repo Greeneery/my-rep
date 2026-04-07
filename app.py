@@ -7,7 +7,7 @@ import atexit
 
 def create_app():
     app = Flask(__name__, template_folder='template')
-    app.config['SECRET_KEY'] = 'aaaaaaaa'
+    app.config['SECRET_KEY'] = 'T231oL131ove1313RuP1313eakGoAn135757dWat8468chItEls48648eGG48484eF2b3n0p12fcc'
     app.config['DEBUG'] = True
 
     app.register_blueprint(views, url_prefix='/') 
