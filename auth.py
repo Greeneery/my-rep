@@ -92,6 +92,6 @@ def verify_token(token):
     except jwt.ExpiredSignatureError:
         print("expired")
         return None, "Token has expired"
-    except jwt.InvalidTokenError:
-        print("invalid token")
+    except jwt.InvalidTokenError as e:
+        print(f"Token invalid error: {e}")
         return None, "Invalid token"

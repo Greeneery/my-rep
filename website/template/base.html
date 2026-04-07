@@ -31,56 +31,77 @@
     </head>
     <body class="d-flex flex-column min-vh-100">
         {% block body_start %}{% endblock body_start %}
-        
 
         {% block header %}
-        <nav id="navbar"
-            class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <a class="navbar-brand" href="/"> Greenery草 </a>
+                <a class="navbar-brand" href="{{ url_for('views.home') }}">
+                    Greenery草 </a>
 
                 <button
-                    class="navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around"
-                    type="button" data-bs-toggle="collapse"
-                    data-bs-target="#mainNav" aria-controls="mainNav"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="toggler-icon top-bar"></span>
-                    <span class="toggler-icon middle-bar"></span>
-                    <span class="toggler-icon bottom-bar"></span>
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="mainNav">
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    {% if not user %}
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
                             <div class="holographic-card">
-                                <a class="nav-link" href="/">Home</a>
+                                <a class="nav-link"
+                                    href="{{ url_for('views.login') }}">Log
+                                    In</a>
                             </div>
                         </li>
                         <li class="nav-item">
                             <div class="holographic-card">
                                 <a class="nav-link"
-                                    href="/browse-page">Plants</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <div class="holographic-card">
-                                <a class="nav-link"
-                                    href="/contact-page">Contact Us</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <div class="holographic-card">
-                                <a class="nav-link"
-                                    href="/log-in-page">Log In</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <div class="holographic-card">
-                                <a class="nav-link"
-                                    href="/sign-up-page">Sign Up</a>
+                                    href="{{ url_for('views.signup') }}">Sign
+                                    Up</a>
                             </div>
                         </li>
                     </ul>
+                    {% else %}
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <div class="holographic-card">
+                                <a class="nav-link"
+                                    href="{{ url_for('views.home') }}">Home</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="holographic-card">
+                                <a class="nav-link"
+                                    href="{{ url_for('views.browse') }}">Plants</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="holographic-card">
+                                <a class="nav-link"
+                                    href="{{ url_for('views.contact') }}">Contact
+                                    Us</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav d-flex align-items-center">
+                        <li class="nav-link">
+                            <span class="navbar-text text-dark me-3">{{
+                                user.username }}</span>
+                        </li>
+                        <li class="nav-link">
+                            <a
+                                class="nav-link-btn btn btn-danger btn-sm text-white"
+                                href="{{ url_for('views.logout') }}">Logout</a>
+                        </li>
+                    </ul>
+                    {% endif %}
                 </div>
             </div>
         </nav>

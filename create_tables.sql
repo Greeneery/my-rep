@@ -40,19 +40,19 @@ CREATE TABLE IF NOT EXISTS Plants (
 -- 4. Favorites Table (Includes the custom Notes feature)
 CREATE TABLE IF NOT EXISTS Favorites (
     favoriteID INT AUTO_INCREMENT PRIMARY KEY,
-    userID INT,
+    user_id INT,
     plantID INT,
     personalNotes TEXT, -- "Ensures users easily remember why they saved a plant"
-    FOREIGN KEY (userID) REFERENCES Users(userID),
+    FOREIGN KEY (user_id) REFERENCES user_base(user_id),
     FOREIGN KEY (plantID) REFERENCES Plants(plantID)
 );
 
 -- 5. Cart Table (Includes the Gift option)
 CREATE TABLE IF NOT EXISTS Cart (
     cartID INT AUTO_INCREMENT PRIMARY KEY,
-    userID INT,
+    user_id INT,
     isGift BOOLEAN DEFAULT FALSE, -- From the Cart page layout
-    FOREIGN KEY (userID) REFERENCES Users(userID)
+    FOREIGN KEY (user_id) REFERENCES user_base(user_id)
 );
 
 -- 6. Cart Items
@@ -67,12 +67,12 @@ CREATE TABLE IF NOT EXISTS Cart_Items (
 -- 7. Orders Table (Final Transaction)
 CREATE TABLE IF NOT EXISTS Orders (
     orderID INT AUTO_INCREMENT PRIMARY KEY,
-    userID INT,
+    user_id INT,
     totalAmount DECIMAL(10, 2),
     orderStatus VARCHAR(50) DEFAULT 'Pending',
     isGift BOOLEAN DEFAULT FALSE,
     shippingAddressAtTime TEXT,
-    FOREIGN KEY (userID) REFERENCES Users(userID)
+    FOREIGN KEY (user_id) REFERENCES user_base(user_id)
 );
 
 -- 8. Order Items (Snapshot of price at purchase)

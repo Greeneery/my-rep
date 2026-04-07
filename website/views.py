@@ -10,7 +10,9 @@ views = Blueprint('views', __name__, template_folder="template")
 
 @views.route('/')
 def home():
-    return render_template("home.html")
+    token = request.cookies.get("auth_token")
+    user_data, error = auth.verify_token(token)
+    return render_template("home.html", user = user_data)
 
 @views.route('/browse-page')
 def browse():
@@ -90,6 +92,12 @@ def signup():
                        
     return render_template("signup.html", form=form, message=message)
 
+@views.route('/logout')
+def logout():
+    response = redirect(url_for("views.index"))
+    response.set_cookie("auth_token", "", expires=0)
+    return response
+
 @views.route('/favorites-page')
 def favorites():
     return render_template("favorites.html")
@@ -105,3 +113,7 @@ def email_confirm():
 @views.route('/purchase-confirm-page')
 def purchase_confirm():
     return render_template("purchaseConfirm.html")
+
+@views.route('/index')
+def index():
+    return redirect(url_for("views.login"), 303)
