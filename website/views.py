@@ -44,7 +44,7 @@ def login():
                     token = auth.generate_token(
                         result["user_id"], result["username"]
                     )
-                    response = redirect(url_for("dashboard"))
+                    response = redirect(url_for("views.contact"))
                     response.set_cookie(
                         "auth_token",
                         token,
@@ -57,6 +57,7 @@ def login():
                 else:
                     message = result.get("error", "Login failed")
             except Exception as e:
+                print("EXCEPTION CAUGHT:", e)
                 message = f"Login failed: {str(e)}"
     return render_template("logIn.html", form=form, message=message)
 
@@ -79,7 +80,7 @@ def signup():
                 
                 if status_code == 201:
                     return redirect(
-                        url_for("log-in-page",
+                        url_for("views.login",
                              message="Account created successfully! Yay! Pls Login. Nyan~",   
                         )
                     )

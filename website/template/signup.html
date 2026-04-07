@@ -3,10 +3,52 @@
 {% block css %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}" />
+<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='css/image/icon/iconGreenery.ico') }}">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
+<div class="sign-up">
+    <h1 class="header-text">Create your account here</h1>
+    <div class="form-box">
+        <form method="POST" novalidate>
+            {{ form.hidden_tag() }}
+            {% if message %}
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                showToast('{{ message }}', 'error');
+            });
+            </script>
+            {% endif %}
 
-{% endblock content %}
+            {% set field = form.username %}
+            {% set placeholder = "Enter your username" %}
+            {% include 'components/form.html' %}
+
+            {% set field = form.first_name %}
+            {% set placeholder = "Enter your first name" %}
+            {% include 'components/form.html' %}
+
+            {% set field = form.last_name %}
+            {% set placeholder = "Enter your last name" %}
+            {% include 'components/form.html' %}
+
+            {% set field = form.email %}
+            {% set placeholder = "Enter your email" %}
+            {% include 'components/form.html' %}
+
+            {% set field = form.password %}
+            {% set placeholder = "Create a password" %}
+            {% include 'components/form.html' %}
+
+            {% set field = form.password2 %}
+            {% set placeholder = "Confirm your password" %}
+            {% include 'components/form.html' %}
+
+            {% set text = "Sign Up" %}
+            {% include 'components/submitBtn.html' %}
+        </form>
+    </div>
+</div>
+{% endblock %}
