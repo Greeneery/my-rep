@@ -2,37 +2,49 @@
 
 {% block css %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}" />
-<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}" />
-<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='css/image/icon/iconGreenery.ico') }}">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='css/home.css') }}" />
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='css/login.css')}}" />
+<link rel="icon" type="image/x-icon"
+    href="{{ url_for('static', filename='css/image/icon/iconGreenery.ico') }}">
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
+    rel="stylesheet" />
+<link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap"
+    rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
-<div class="login-block">
-    <h1 class="login-text">Welcome Back!</h1>
-    <div class="form-box">
-        <form method="POST" novalidate>
-            {{ form.hidden_tag() }}
-            {% if message %}
-            <script>
+<div class="login-container">
+    <div class="login-block">
+        <div class="form-box">
+            <h1 class="login-text">Login</h1>
+            <form method="POST" novalidate>
+                {{ form.hidden_tag() }}
+                {% if message %}
+                <script>
             document.addEventListener('DOMContentLoaded', function() {
                 showToast('{{ message }}', 'error');
             });
             </script>
-            {% endif %}
-            {% set field = form.name %}
-            {% set placeholder = "Enter your username" %}
-            {% include 'components/form.html' %}
+                {% endif %}
+                {% set field = form.name %}
+                {% set placeholder = "Enter your username" %}
+                {% include 'components/form.html' %}
 
-            {% set field = form.password %}
-            {% set placeholder = "Enter your password" %}
-            {% include 'components/form.html' %}
+                {% set field = form.password %}
+                {% set placeholder = "Enter your password" %}
+                {% include 'components/form.html' %}
 
-            {% set text = "Login" %}
-            {% include 'components/submitBtn.html' %}
-        </form>
+                {% set text = "Login" %}
+                {% include 'components/submitBtn.html' %}
+            </form>
+            <p class="signup-link-desc">Don't have an account? <a
+                    class="signup-link"
+                    href="{{ url_for('views.signup') }}">Sign Up</a></p>
+        </div>
     </div>
 </div>
 {% endblock %}

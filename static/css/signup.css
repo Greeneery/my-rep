@@ -1,0 +1,107 @@
+.signup-block {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    margin-top: 20px;
+}
+
+.signup-block .form-box {
+    width: 100%;
+    max-width: 550px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.form-label {
+    color: #333;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    font-family: Cormorant;
+}
+
+.form-control {
+    font-family: Cormorant;
+    border-radius: 12px;
+}
+
+.form-control:focus {
+    border-color: rgb(27, 37, 37);
+    box-shadow: 0 0 0 0.2rem rgba(40, 215, 255, 0.25);
+    background: #fff;
+    outline: none;
+}
+
+
+.signup-block .form-box h1 {
+    margin-bottom: 20px;
+    font-family: Cormorant;
+    font-weight: 600;
+}
+
+
+.signup-block .login-link-desc {
+    margin-top: 20px;
+    font-family: Cormorant;
+    font-size: 19px;
+    font-weight: 400;
+}
+
+.signup-block .login-link-desc .login-link {
+    text-decoration: none;
+    color: #003121;
+    margin-left: 255px;
+    font-weight: 600;
+}
+
+.signup-block .login-link-desc .login-link:hover {
+    color: #028b5d;
+}
+
+.signup-block .form-box .btn-primary {
+    backdrop-filter: blur(5px);
+    background: #003121;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    border-radius: 100px;
+    padding: 10px 25px;
+    color: white;
+    font-weight: 600;
+    width: 60%;
+    margin: 1rem auto 0 auto;
+    font-family: Cormorant;
+    font-size: 20px;
+}
+
+.signup-block .form-box .btn-primary:hover {
+    background: #015338;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(56, 189, 255, 0.4);
+}
+
+
+@media (max-width: 768px) {
+    .signup-block {
+        padding: 1rem;
+    }
+
+    .signup-block .form-box {
+        padding: 1.5rem;
+        max-width: 100%;
+    }
+
+    .signup-block .text {
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .signup-block .form-box {
+        padding: 1.25rem;
+    }
+}
