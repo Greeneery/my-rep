@@ -1,0 +1,143 @@
+.description-container {
+    display: flex;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 40px;
+}
+
+.product-visuals {
+    flex: 1;
+    max-width: 550px;
+}
+
+.main-image {
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #f8f8f8;
+}
+
+.main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-info-panel {
+    flex: 1;
+    max-width: 500px;
+}
+
+.breadcrumb {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.product-title {
+    font-size: 36px;
+    font-family: 'Cormorant Garamond', serif;
+    color: #004C13;
+    margin: 0 0 15px 0;
+    font-weight: 600;
+}
+
+.product-price {
+    font-size: 28px;
+    color: #4D6B3B;
+    margin: 0 0 30px 0;
+    font-weight: 500;
+}
+
+.product-description {
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 35px;
+    font-size: 15px;
+}
+
+.plant-details {
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 25px 0;
+    margin-bottom: 35px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    font-size: 14px;
+}
+
+.detail-label {
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 13px;
+}
+
+.detail-value {
+    color: #333;
+    font-weight: 500;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-add-cart {
+    flex: 1;
+    background: #004C13;
+    color: white;
+    border: none;
+    padding: 16px 30px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    border-radius: 2px;
+}
+
+.btn-add-cart:hover {
+    background: #003a0f;
+}
+
+.btn-wishlist {
+    width: 55px;
+    background: white;
+    border: 1px solid #004C13;
+    color: #004C13;
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.btn-wishlist:hover {
+    background: #004C13;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .description-container {
+        flex-direction: column;
+        padding: 0 20px;
+    }
+
+    .product-visuals,
+    .product-info-panel {
+        max-width: 100%;
+    }
+
+    .main-image {
+        height: 400px;
+    }
+}

@@ -20,7 +20,11 @@ def home():
 def browse():
     token = request.cookies.get("auth_token")
     user_data, error = auth.verify_token(token)
-    return render_template("browse.html", user = user_data)
+    
+    query = "SELECT * FROM Plants"
+    real_plants = execute_query(query, fetch="all")
+        
+    return render_template("browse.html", user = user_data, plants = real_plants)
 
 @views.route('/contact-page')
 def contact():
@@ -35,9 +39,37 @@ def checkout():
     
     return render_template("checkout.html")
 
-@views.route('/detail-page')
-def detail():
-    return render_template("detail.html")
+@views.route('/detail-page/<int:plant_id>')
+def detail(plant_id):
+    token = request.cookies.get("auth_token")
+    user_data, error = auth.verify_token(token)
+    
+    plant = None
+    
+    try:
+        from sql import execute_query
+        # Fetch plant from database
+        query = "SELECT * FROM Plants WHERE plantID = %s"
+        plant = execute_query(query, (plant_id,), fetch="one")
+    except Exception as e:
+        print(f"Database error: {e}")
+        plant = None
+    
+    # If plant not found, use dummy data
+    if not plant:
+        plant = {
+            'id': plant_id,
+            'name': 'Snake Plant',
+            'price': 25.00,
+            'desc': 'The Snake Plant is a hardy, low-maintenance plant perfect for beginners. It thrives in low light conditions and requires minimal watering. Known for its air-purifying qualities, this plant is ideal for bedrooms and offices.',
+            'image': 'homeBG.jpg',
+            'light': 'Low to Bright Indirect',
+            'water': 'Every 2-3 weeks',
+            'size': 'Medium',
+            'pet_friendly': False
+        }
+    
+    return render_template("detail.html", user =user_data, plant = plant)
 
 @views.route('/log-in-page', methods=["GET", "POST"])
 def login():
@@ -117,6 +149,15 @@ def favorites():
 def cart():
     token = request.cookies.get("auth_token")
     user_data, error = auth.verify_token(token)
+    
+    if user_data is None:
+        return redirect(url_for('views.login'))
+    
+    cart_id = models.Cart.get_or_create_cart(user_data['user_id'])
+    items = models.Cart.get_items_with_details(cart_id)
+    
+    total = sum(item['price'] * item['quantity'] for item in items) if items else 0
+        
     return render_template("cart.html", user = user_data)
 
 @views.route('/add-to-cart/<int:plant_id>', methods=['POST'])
@@ -128,7 +169,7 @@ def add_to_cart(plant_id):
         return redirect(url_for('views.login'))
     
     user_id = user_data['user_id']
-    cart_id = models.get_or_create_cart(user_id)
+    cart_id = models.Cart.get_or_create_cart(user_id)
     
     check_query = "SELECT cartItemID, quantity FROM Cart_Items WHERE cartID = %s AND plantID = %s"
     existing_item = execute_query(check_query, (cart_id, plant_id), fetch="one")
@@ -142,8 +183,7 @@ def add_to_cart(plant_id):
         execute_query(insert_query, (cart_id, plant_id), fetch="none")
     
     return redirect(url_for('views.cart'))
-    
-    
+        
 
 @views.route('/email-confirm-page')
 def email_confirm():

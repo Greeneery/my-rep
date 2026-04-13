@@ -1,9 +1,67 @@
 {% extends "base.html" %}
 
-{% block title %}Detail Page{% endblock title %}
-
-{% block page_title %}Detail{% endblock page_title %}
+{% block css %}
+{{ super() }}
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='css/description.css') }}" />
+<link rel="icon" type="image/x-icon"
+    href="{{ url_for('static', filename='css/image/icon/iconGreenery.ico') }}">
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
+    rel="stylesheet" />
+<link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+{% endblock %}
 
 {% block content %}
+
+<div class="description-container">
+    <div class="product-visuals">
+        <div class="main-image">
+            <img src="{{ url_for('static', filename='images/' + plant['imageUrl']) }}"
+                alt="{{ plant['plantName'] }}">
+        </div>
+    </div>
+
+    <div class="product-info-panel">
+        <nav class="breadcrumb">Home / Indoor Plants / {{ plant['plantName'] }}</nav>
+
+        <h1 class="product-title">{{ plant['plantName'] }}</h1>
+        <p class="product-price">${{ "%.2f"|format(plant['price']) }}</p>
+
+        <div class="product-description">
+            <p>{{ plant['description'] }}</p>
+        </div>
+
+        <div class="plant-details">
+            <div class="detail-item">
+                <span class="detail-label">Light Requirement</span>
+                <span class="detail-value">{{
+                    plant['lightRequirement']}}</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Air Cleaner</span>
+                <span class="detail-value">{{
+                    'Yes' if plant['isAirCleaner'] == 1 else 'No'}}</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Size</span>
+                <span class="detail-value">{{ plant['plantSize']|default('Medium')
+                    }}</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Pet Friendly</span>
+                <span class="detail-value">{{ 'Yes' if plant['isPetFriendly'] == 1 else
+                    'No' }}</span>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn-add-cart">ADD TO CART</button>
+            <button class="btn-wishlist">♡</button>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}

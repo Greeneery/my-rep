@@ -1,9 +1,65 @@
 {% extends "base.html" %}
 
-{% block title %}Browse Page{% endblock title %}
-
-{% block page_title %}Browse{% endblock page_title %}
+{% block css %}
+{{ super() }}
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='css/browse.css') }}" />
+<link rel="icon" type="image/x-icon"
+    href="{{ url_for('static', filename='css/image/icon/iconGreenery.ico') }}">
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
+    rel="stylesheet" />
+<link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+{% endblock %}
 
 {% block content %}
+<div class="browse-container">
 
-{% endblock content %}
+    <aside class="filter-sidebar">
+        <h3>Filter</h3>
+        <ul class="filter-list">
+            <li><a href="{{ url_for('views.browse', light='low') }}">Indoor
+                    Light</a></li>
+            <li><a href="{{ url_for('views.browse', size='large') }}">Plant
+                    Size</a></li>
+            <li><a
+                    href="{{ url_for('views.browse', difficulty='easy') }}">Difficulty</a></li>
+            <li><a
+                    href="{{ url_for('views.browse', pet='true') }}">Pet-Friendly</a></li>
+            <li><a
+                    href="{{ url_for('views.browse', air='true') }}">Air-Purifier</a></li>
+        </ul>
+
+        <a href="{{ url_for('views.browse') }}" class="clear-btn">CLEAR
+            FILTERS</a>
+    </aside>
+
+    <main class="browse-main">
+        <div class="browse-header">
+            <h1 class="browse-title">BROWSE</h1>
+            <div class="sort-dropdown">SORT BY FEATURED ▾</div>
+        </div>
+
+        <div class="product-grid">
+            {% for plant in plants %}
+            <a href="{{ url_for('views.detail', plant_id=plant['plantID']) }}"
+                class="product-card">
+                <div class="product-image">
+                    <img
+                        src="{{ url_for('static', filename='images/' + plant['imageUrl']) }}"
+                        alt="{{ plant['plantName'] }}">
+                </div>
+                <div class="product-info">
+                    <span class="product-name">{{ plant['plantName'] }}</span>
+                    <span class="product-price">${{ "%.2f"|format(plant['price'])
+                        }}</span>
+                    <span class="favorite-icon">♥</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </main>
+</div>
+{% endblock %}

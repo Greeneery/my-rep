@@ -77,7 +77,7 @@ class UserBase(BaseModel):
         self.last_login = last_login
 
     def __str__(self):
-        return f"Base User: {self.username} {self.role}. ID: {self.user_id}"
+        return f"Base User: {self.username} . ID: {self.user_id}"
 
     def save(self):
         """Create or update user in database"""
@@ -122,7 +122,7 @@ class UserBase(BaseModel):
         """Get all users"""
         query = "SELECT * FROM user_base ORDER BY username"
         results = execute_query(query, fetch="all")
-        return [cls.from_dict(row) for row in results]
+        return [cls.from_dict(row) for row in results] if results else []
 
     def update(self):
         """Update user in database"""
@@ -176,13 +176,13 @@ class Cart(BaseModel):
     @classmethod
     def get_or_create_cart(cls, user_id):
         query = "SELECT cartID FROM Cart WHERE user_id = %s"
-        cart_data = execute_query(query, (user_id), fetch="one")
+        cart_data = execute_query(query, (user_id,), fetch="one")
         
         if cart_data:
             return cart_data['cartID']
         else:
-            insert_query = "INSERT INTO Cart (user_id) VALUE (%s)"
-            return execute_query(insert_query, (user_id), fetch="none")
+            insert_query = "INSERT INTO Cart (user_id) VALUES (%s)"
+            return execute_query(insert_query, (user_id,), fetch="none")
         
     @classmethod
     def get_items_with_details (cls, cart_id):
@@ -192,5 +192,5 @@ class Cart(BaseModel):
             JOIN Plants p ON ci.plantID = p.plantID
             WHERE ci.cartID = %s
         """
-        return execute_query(query, (cart_id), fetch="all")
+        return execute_query(query, (cart_id,), fetch="all")
         

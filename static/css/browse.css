@@ -1,0 +1,218 @@
+.browse-container {
+    display: flex;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+.filter-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    margin-top: 60px;
+}
+
+.filter-sidebar h3 {
+    font-size: 28px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-list {
+    list-style: none;
+    padding: 0;
+}
+
+.filter-list li {
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.filter-list li a {
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #004C13;
+    transition: color 0.2s ease;
+    display: block;
+}
+
+.filter-list li a:hover {
+    color: #76A25C;
+}
+
+.clear-btn {
+    display: block;
+    width: 100%;
+    background: none;
+    border: 1px solid #004C13;
+    padding: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    color: #004C13;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.clear-btn:hover {
+    background-color: #004C13;
+    color: #FFFFFF;
+}
+
+/* Main Content Area */
+.browse-main {
+    flex-grow: 1;
+}
+
+.browse-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.browse-title {
+    font-size: 40px;
+    color: #4D6B3B;
+    margin: 0;
+}
+
+
+.product-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+/* 2. Style the Card */
+.product-card {
+    background-color: transparent;
+    transition: transform 0.2s;
+    text-decoration: none;
+    display: block;
+    color: inherit;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+/* 3. The TALL Image Fix */
+.product-image {
+    width: 100%;
+    /* This forces the 'Long' portrait look */
+    height: 400px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    /* This is the most important line: it fits the image 
+       into the tall box without stretching it */
+    object-fit: cover;
+    display: block;
+}
+
+/* 4. Info Styling */
+.product-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 5px;
+    font-size: 16px;
+    color: #004C13;
+}
+
+.product-name {
+    font-weight: bold;
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.favorite-icon {
+    cursor: pointer;
+    color: #004C13;
+    font-size: 14px;
+}
+
+
+
+@media (max-width: 1024px) {
+    .product-grid {
+        /* Drop to 2 columns */
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .product-image {
+
+        height: 350px;
+    }
+}
+
+/* Mobile (under 768px) */
+@media (max-width: 768px) {
+    .browse-container {
+
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .filter-sidebar {
+
+        width: 100%;
+        margin-top: 20px;
+    }
+
+
+    .filter-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .filter-list li {
+        padding: 8px 16px;
+        border: 1px solid #004C13;
+        border-radius: 20px;
+    }
+
+    .filter-list li a {
+        font-size: 12px;
+    }
+
+    .clear-btn {
+        margin-top: 15px;
+    }
+
+    .browse-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .browse-title {
+        font-size: 32px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .product-grid {
+        /* Drop to 1 column for very small screens */
+        grid-template-columns: 1fr;
+    }
+
+    .product-image {
+        height: 300px;
+    }
+}
