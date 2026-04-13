@@ -7,3 +7,38 @@ body {
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
 }
+
+.home-page-wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+}
+.home-text {
+    text-align: left;
+    padding: 0 60px;
+    color: white;
+    margin-top: 200px;
+}
+
+.home-content {
+    background-color: #FFFDED;
+    width: 100%;
+}
+
+.welcome {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(60px, 10vw, 120px);
+    margin: 0 0 10px 0;
+    color: white;
+}
+
+.description {
+    font-family: 'Cormorant Garamond', serif;
+    color: #FBFBF3;
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(20px, 3vw, 35px);
+    margin: 0;
+}

@@ -1,15 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Long+Cang&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
 
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+
 .navbar-brand {
-    color: #4d6b3b;
+    color: #4d6b3b !important;
     font-family: Long Cang;
     font-weight: 600;
     font-size: 40px;
+    transition: transform 0.3s;
+}
+
+.navbar-brand:hover{
+    color: #61874a !important;
+    transform: translateY(-6px);
 }
 
 .navbar {
     background-color: aliceblue;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: 0.3s ease-in-out;
 }
 
 .nav-link {
@@ -28,4 +45,15 @@
 
 .nav-link-btn {
     background-color: #3c532e;
+}
+
+.nav-effect {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.nav-small .container {
+    padding: 5px 20px;
 }

@@ -24,14 +24,13 @@ CREATE TABLE IF NOT EXISTS user_base(
 -- 3. Plants Table (Includes attributes for filtering/browse page)
 CREATE TABLE IF NOT EXISTS Plants (
     plantID INT AUTO_INCREMENT PRIMARY KEY,
-    commonName VARCHAR(100) NOT NULL,
-    scientificName VARCHAR(100),
+    plantName VARCHAR(100) NOT NULL,
     description TEXT,
     price DECIMAL(10, 2) NOT NULL,
     stockQuantity INT DEFAULT 0,
     imageUrl VARCHAR(255),
     categoryID INT,
-    difficultyLevel ENUM('Beginner', 'Intermediate', 'Expert'),
+    plantSize ENUM('Ultra Small','Small', 'Medium', 'Large', 'Ultra Large'),
     isAirCleaner BOOLEAN DEFAULT FALSE,
     lightRequirement ENUM('Low', 'Medium', 'Bright Indirect', 'Direct Sunlight'),
     isPetFriendly BOOLEAN DEFAULT FALSE,
