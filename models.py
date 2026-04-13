@@ -165,3 +165,32 @@ class UserBase(BaseModel):
             execute_query(query, (self.user_id,), fetch="none")
             self.user_id = None
         return True
+
+
+class Cart(BaseModel):
+    def __init__ (self, cartID=None, user_id=None, isGift=False):
+        self.cartID = cartID
+        self.user_id = user_id
+        self.isGift = isGift
+    
+    @classmethod
+    def get_or_create_cart(cls, user_id):
+        query = "SELECT cartID FROM Cart WHERE user_id = %s"
+        cart_data = execute_query(query, (user_id), fetch="one")
+        
+        if cart_data:
+            return cart_data['cartID']
+        else:
+            insert_query = "INSERT INTO Cart (user_id) VALUE (%s)"
+            return execute_query(insert_query, (user_id), fetch="none")
+        
+    @classmethod
+    def get_items_with_details (cls, cart_id):
+        query = """
+            SELECT ci.cartItemID, ci.quantity, p.plantID, p.plantName, p.price, p.imageUrl 
+            FROM Cart_Items ci
+            JOIN Plants p ON ci.plantID = p.plantID
+            WHERE ci.cartID = %s
+        """
+        return execute_query(query, (cart_id), fetch="all")
+        

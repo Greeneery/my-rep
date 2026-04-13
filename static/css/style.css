@@ -57,3 +57,25 @@ body {
 .nav-small .container {
     padding: 5px 20px;
 }
+
+.nav-icons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-icons a {
+    text-decoration: none;
+    color: #004C13;
+    display: flex;
+    align-items: center;
+}
+
+.nav-icons svg {
+    width: 22px;
+    height: 22px;
+}
+
+.nav-icons a:hover {
+    color: #76A25C;
+}

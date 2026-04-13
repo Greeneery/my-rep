@@ -70,12 +70,10 @@
                     </ul>
                     {% else %}
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <div class="holographic-card">
-                                <a class="nav-link"
-                                    href="{{ url_for('views.home') }}">Home</a>
-                            </div>
-                        </li>
+                        <!--<li class="nav-link">
+                            <span class="navbar-text me-3">Welcome, {{
+                                user.username }} !</span>
+                        </li>-->
                         <li class="nav-item">
                             <div class="holographic-card">
                                 <a class="nav-link"
@@ -89,10 +87,22 @@
                                     Us</a>
                             </div>
                         </li>
-                        <li class="nav-link">
-                            <span class="navbar-text me-3">{{
-                                user.username }}</span>
-                        </li>
+                        <div class="nav-icons">
+                            <a href="/favorites-page" title="Favorites">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                </svg>
+                            </a>
+                            <a href="/cart-page" title="Cart">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="M17 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2M1 2v2h2l3.6 7.59l-1.36 2.45c-.15.28-.24.61-.24.96a2 2 0 0 0 2 2h12v-2H7.42a.25.25 0 0 1-.25-.25q0-.075.03-.12L8.1 13h7.45c.75 0 1.41-.42 1.75-1.03l3.58-6.47c.07-.16.12-.33.12-.5a1 1 0 0 0-1-1H5.21l-.94-2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2" />
+                                </svg>
+                            </a>
+                        </div>
                         <li class="nav-link">
                             <a
                                 class="nav-link-btn btn btn-bg text-white"
@@ -112,6 +122,7 @@
         </div>
 
         {% block body_end %}{% endblock body_end %}
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="{{ url_for('static', filename='js/navbar.js') }}"></script>
     </body>

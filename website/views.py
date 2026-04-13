@@ -4,11 +4,13 @@ from forms import LoginForm, SignupForm
 import models
 import auth
 from sql import execute_query
+from auth import login_required
 
 
 views = Blueprint('views', __name__, template_folder="template")
 
 @views.route('/')
+@login_required
 def home():
     token = request.cookies.get("auth_token")
     user_data, error = auth.verify_token(token)
@@ -28,6 +30,9 @@ def contact():
 
 @views.route('/check-out-page')
 def checkout():
+    token = request.cookies.get("auth_token")
+    user_data, error = auth.verify_token(token)
+    
     return render_template("checkout.html")
 
 @views.route('/detail-page')
@@ -104,11 +109,41 @@ def logout():
 
 @views.route('/favorites-page')
 def favorites():
-    return render_template("favorites.html")
+    token = request.cookies.get("auth_token")
+    user_data, error = auth.verify_token(token)
+    return render_template("favorites.html", user = user_data)
 
 @views.route('/cart-page')
 def cart():
-    return render_template("cart.html")
+    token = request.cookies.get("auth_token")
+    user_data, error = auth.verify_token(token)
+    return render_template("cart.html", user = user_data)
+
+@views.route('/add-to-cart/<int:plant_id>', methods=['POST'])
+def add_to_cart(plant_id):
+    token = request.cookies.get("auth_token")
+    user_data, error = auth.verify_token(token)
+    
+    if user_data is None:
+        return redirect(url_for('views.login'))
+    
+    user_id = user_data['user_id']
+    cart_id = models.get_or_create_cart(user_id)
+    
+    check_query = "SELECT cartItemID, quantity FROM Cart_Items WHERE cartID = %s AND plantID = %s"
+    existing_item = execute_query(check_query, (cart_id, plant_id), fetch="one")
+    
+    if existing_item:
+        new_quty = existing_item['quantity'] + 1
+        update_query = "UPDATE Cart_Items SET quantity = %s WHERE cartItemID = %s"
+        execute_query(update_query, (new_quty, existing_item['cartItemID']), fetch="none")
+    else:
+        insert_query = "INSERT INTO Cart_Items (cartID, plantID, quantity) VALUES (%s, %s, 1)"
+        execute_query(insert_query, (cart_id, plant_id), fetch="none")
+    
+    return redirect(url_for('views.cart'))
+    
+    
 
 @views.route('/email-confirm-page')
 def email_confirm():
@@ -116,7 +151,9 @@ def email_confirm():
 
 @views.route('/purchase-confirm-page')
 def purchase_confirm():
-    return render_template("purchaseConfirm.html")
+    token = request.cookies.get("auth_token")
+    user_data, error = auth.verify_token(token)
+    return render_template("purchaseConfirm.html", user = user_data)
 
 @views.route('/index')
 def index():

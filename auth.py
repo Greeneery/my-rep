@@ -4,6 +4,8 @@ import jwt
 
 from bcrypt import gensalt, hashpw
 from flask import current_app
+from functools import wraps
+from flask import request, jsonify, redirect, url_for
 
 import models
 
@@ -95,3 +97,15 @@ def verify_token(token):
     except jwt.InvalidTokenError as e:
         print(f"Token invalid error: {e}")
         return None, "Invalid token"
+    
+def login_required(f):
+    @wraps(f)
+    def decorated_func(*args, **kwargs):
+        token = request.cookies.get("auth_token")
+        user_data, error = verify_token(token)
+        
+        if user_data is None:
+            return redirect(url_for('views.login'))
+        
+        return f(*args, **kwargs)
+    return decorated_func

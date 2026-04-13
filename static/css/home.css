@@ -29,7 +29,7 @@ body {
 .welcome {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 400;
-    font-size: clamp(60px, 10vw, 120px);
+    font-size: clamp(60px, 10vw, 70px);
     margin: 0 0 10px 0;
     color: white;
 }
