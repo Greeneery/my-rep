@@ -21,8 +21,61 @@ def browse():
     token = request.cookies.get("auth_token")
     user_data, error = auth.verify_token(token)
     
-    query = "SELECT * FROM Plants"
-    real_plants = execute_query(query, fetch="all")
+    lowLightFilter = request.args.get('llight')
+    mediumLightFilter = request.args.get('mlight')
+    biLightFilter = request.args.get('bilight')
+    dsLightFilter = request.args.get('dslight')
+    smallPlantFilter = request.args.get('ssize')
+    mediumPlantFilter = request.args.get('msize')
+    largePlantFilter = request.args.get('lsize')
+    ultraLargePlantFilter = request.args.get('ulsize')
+    airPurifierFilter = request.args.get('air')
+    petFriendlyFilter = request.args.get('pet')
+    
+    query = "SELECT * FROM Plants WHERE 1=1"
+    params = []
+    
+    if lowLightFilter == 'Low':
+        query += " AND lightRequirement = %s"
+        params.append('Low')
+        
+    if mediumLightFilter == 'Medium':
+        query += " AND lightRequirement = %s"
+        params.append('Medium')
+        
+    if biLightFilter == 'Bright Indirect':
+        query += " AND lightRequirement = %s"
+        params.append('Bright Indirect')
+        
+    if dsLightFilter == 'Direct Sunlight':
+        query += " AND lightRequirement = %s"
+        params.append('Direct Sunlight')
+    
+    if smallPlantFilter == 'Small':
+        query += " AND plantSize = %s"
+        params.append('Small')
+        
+    if mediumPlantFilter == 'Medium':
+        query += " AND plantSize = %s"
+        params.append('Medium')
+        
+    if largePlantFilter == 'Large':
+        query += " AND plantSize = %s"
+        params.append('Large')
+    
+    if ultraLargePlantFilter == 'Ultra Large':
+        query += " AND plantSize = %s"
+        params.append('Ultra Large')
+        
+    if airPurifierFilter == '1':
+        query += " AND isAirCleaner = %s"
+        params.append('1')
+        
+    if petFriendlyFilter == '1':
+        query += " AND isPetFriendly = %s"
+        params.append('1')
+        
+    real_plants = execute_query(query, tuple(params), fetch="all")
         
     return render_template("browse.html", user = user_data, plants = real_plants)
 
@@ -54,20 +107,6 @@ def detail(plant_id):
     except Exception as e:
         print(f"Database error: {e}")
         plant = None
-    
-    # If plant not found, use dummy data
-    if not plant:
-        plant = {
-            'id': plant_id,
-            'name': 'Snake Plant',
-            'price': 25.00,
-            'desc': 'The Snake Plant is a hardy, low-maintenance plant perfect for beginners. It thrives in low light conditions and requires minimal watering. Known for its air-purifying qualities, this plant is ideal for bedrooms and offices.',
-            'image': 'homeBG.jpg',
-            'light': 'Low to Bright Indirect',
-            'water': 'Every 2-3 weeks',
-            'size': 'Medium',
-            'pet_friendly': False
-        }
     
     return render_template("detail.html", user =user_data, plant = plant)
 

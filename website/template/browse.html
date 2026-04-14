@@ -20,16 +20,33 @@
     <aside class="filter-sidebar">
         <h3>Filter</h3>
         <ul class="filter-list">
-            <li><a href="{{ url_for('views.browse', light='low') }}">Indoor
+            <li><a href="{{ url_for('views.browse', llight='Low') }}">Low
                     Light</a></li>
-            <li><a href="{{ url_for('views.browse', size='large') }}">Plant
-                    Size</a></li>
+            <li><a href="{{ url_for('views.browse', mlight='Medium') }}">Medium
+                    Light</a></li>
             <li><a
-                    href="{{ url_for('views.browse', difficulty='easy') }}">Difficulty</a></li>
+                    href="{{ url_for('views.browse', bilight='Bright Indirect') }}">Bright
+                    Indirect</a></li>
             <li><a
-                    href="{{ url_for('views.browse', pet='true') }}">Pet-Friendly</a></li>
+                    href="{{ url_for('views.browse', dslight='Direct Sunlight') }}">Direct
+                    Sunlight</a></li>
+            <li><a href="{{ url_for('views.browse', ssize='Small') }}"> Small
+                    Plant
+                </a></li>
+            <li><a href="{{ url_for('views.browse', msize='Medium') }}"> Medium
+                    Plant
+                </a></li>
+            <li><a href="{{ url_for('views.browse', lsize='Large') }}"> Large
+                    Plant
+                </a></li>
+            <li><a href="{{ url_for('views.browse', ulsize='Ultra Large') }}">
+                    Ultra Large
+                    Plant
+                </a></li>
             <li><a
-                    href="{{ url_for('views.browse', air='true') }}">Air-Purifier</a></li>
+                    href="{{ url_for('views.browse', pet='1') }}">Pet-Friendly</a></li>
+            <li><a
+                    href="{{ url_for('views.browse', air='1') }}">Air-Purifier</a></li>
         </ul>
 
         <a href="{{ url_for('views.browse') }}" class="clear-btn">CLEAR
@@ -39,7 +56,6 @@
     <main class="browse-main">
         <div class="browse-header">
             <h1 class="browse-title">BROWSE</h1>
-            <div class="sort-dropdown">SORT BY FEATURED ▾</div>
         </div>
 
         <div class="product-grid">
@@ -53,7 +69,8 @@
                 </div>
                 <div class="product-info">
                     <span class="product-name">{{ plant['plantName'] }}</span>
-                    <span class="product-price">${{ "%.2f"|format(plant['price'])
+                    <span class="product-price">${{
+                        "%.2f"|format(plant['price'])
                         }}</span>
                     <span class="favorite-icon">♥</span>
                 </div>
