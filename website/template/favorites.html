@@ -1,9 +1,81 @@
 {% extends "base.html" %}
 
-{% block title %}Favorites Page{% endblock title %}
-
-{% block page_title %}Favorites{% endblock page_title %}
+{% block css %}
+{{ super() }}
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='css/favorites.css') }}" />
+<link rel="icon" type="image/x-icon"
+    href="{{ url_for('static', filename='css/image/icon/iconGreenery.ico') }}">
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
+    rel="stylesheet" />
+<link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+{% endblock %}
 
 {% block content %}
+
+<section class="favorites-page">
+   <div class="browse-container">
+    <main class="browse-main">
+        <div class="browse-header">
+            <h1 class="browse-title">Favorites</h1>
+        </div>
+
+        <div class="product-grid">
+            {% for plant in favorites %}
+            <a href="{{ url_for('views.detail', plant_id=plant['plantID']) }}"
+                class="product-card">
+                <div class="product-image">
+                    <img
+                        src="{{ url_for('static', filename='images/' + plant['imageUrl']) }}"
+                        alt="{{ plant['plantName'] }}">
+                </div>
+                <div class="product-info">
+                    <span class="product-name">{{ plant['plantName'] }}</span>
+                    <span class="product-price">${{
+                        "%.2f"|format(plant['price'])
+                        }}</span>
+                    <form
+                        action="{{ url_for('views.toggle_fav', plant_id=plant['plantID']) }}"
+                        method="POST" style="display:inline;">
+                        <button type="submit" class="favorite-icon"
+                            style="background:none; border:none; padding:0; cursor:pointer; color:#004C13;">
+                            ♥
+                        </button>
+                    </form>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </main>
+</div>
+</section>
+
+<script>
+// Select ALL quantity boxes on the page
+const qtyBoxes = document.querySelectorAll('.qty-box');
+
+qtyBoxes.forEach(box => {
+    const minus = box.querySelector('.minus');
+    const plus = box.querySelector('.plus');
+    const valueInput = box.querySelector('.qty-value');
+
+    plus.addEventListener('click', () => {
+        let qty = parseInt(valueInput.value);
+        qty++;
+        valueInput.value = qty;
+    });
+
+    minus.addEventListener('click', () => {
+        let qty = parseInt(valueInput.value);
+        if (qty > 1) {
+            qty--;
+            valueInput.value = qty;
+        }
+    });
+});
+</script>
 
 {% endblock content %}

@@ -193,4 +193,36 @@ class Cart(BaseModel):
             WHERE ci.cartID = %s
         """
         return execute_query(query, (cart_id,), fetch="all")
+    
+class Favorites(BaseModel):
+    def __init__ (self, favoriteID=None, user_id=None, plantID=None, personalNotes=None):
+        self.favoriteID = favoriteID
+        self.user_id = user_id
+        self.plantID = plantID
+        self.personalNotes = personalNotes
+        
+    @classmethod
+    def get_user_favorites(cls, user_id):
+        query = """
+            SELECT f.favoriteID, f.personalNotes, p.plantID, p.plantName, p.price, p.imageUrl 
+            FROM Favorites f
+            JOIN Plants p ON f.plantID = p.plantID
+            WHERE f.user_id = %s
+        """
+        return execute_query(query, (user_id,), fetch="all")
+    
+    @classmethod
+    def toggle_favorites(cls, user_id, plant_id):
+        check_query = "SELECT favoriteID FROM Favorites WHERE user_id = %s AND plantID = %s"
+        existing = execute_query(check_query, (user_id, plant_id), fetch="one")
+        
+        if existing:
+            delete_query = "DELETE FROM Favorites WHERE favoriteID = %s"
+            execute_query(delete_query, (existing['favoriteID'],), fetch="none")
+            return "removed ^_^"
+        else:
+            insert_query = "INSERT INTO Favorites (user_id, plantID) VALUES (%s , %s)"
+            execute_query(insert_query, (user_id, plant_id), fetch="none")
+            return "added :D"
+        
         

@@ -179,12 +179,35 @@ def logout():
     return response
 
 @views.route('/favorites-page')
+@login_required
 def favorites():
     token = request.cookies.get("auth_token")
     user_data, error = auth.verify_token(token)
-    return render_template("favorites.html", user = user_data)
+    
+    if user_data is None:
+        return redirect(url_for('views.login'))
+    
+    favorite_plants = models.Favorites.get_user_favorites(user_data['user_id'])
+    
+    print("FAVORITES FOUND:", favorite_plants)
+    
+    return render_template("favorites.html", user = user_data, favorites = favorite_plants)
+
+@views.route('/toggle-favorite/<int:plant_id>', methods=['POST'])
+def toggle_fav(plant_id):
+    token = request.cookies.get("auth_token")
+    user_data, error = auth.verify_token(token)
+    
+    if user_data is None:
+        return redirect(url_for('views.login'))
+    
+    status = models.Favorites.toggle_favorites(user_data['user_id'], plant_id)
+    
+    return redirect(request.referrer or url_for('views.browse'))
+    
 
 @views.route('/cart-page')
+@login_required
 def cart():
     token = request.cookies.get("auth_token")
     user_data, error = auth.verify_token(token)
