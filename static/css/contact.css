@@ -13,7 +13,7 @@
 
 .contact-info {
   flex: 1;
-  background: #1f1f1f;
+  background: rgb(0, 82, 0);
   color: white;
   padding: 40px;
   border-radius: 15px;
@@ -24,18 +24,7 @@
 .contact-info h2 {
   margin-bottom: 5px;
   font-weight: 1000;
-  background: #f6aa1c;
-  background: linear-gradient(90deg,
-      rgba(246, 170, 28, 1) 0%,
-      rgba(98, 23, 8, 1) 42%,
-      rgba(148, 27, 12, 1) 65%,
-      rgba(188, 57, 8, 1) 85%,
-      rgba(246, 170, 28, 1) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 500% auto;
-  animation: gradient 10s ease-in-out infinite alternate;
+  color: aliceblue;
   transition: transform 0.3s;
 }
 
@@ -80,7 +69,7 @@
 
 .contact-form {
   flex: 2;
-  background: #1f1f1f;
+  background: rgb(0, 82, 0);
   padding: 40px;
   border-radius: 15px;
   font-family: Cormorant;
@@ -95,21 +84,9 @@
 
 .contact-left-title h2 {
   font-weight: 800;
-  color: brown;
+  color: aliceblue;
   font-size: 40px;
   margin-bottom: 2px;
-  background: #f6aa1c;
-  background: linear-gradient(90deg,
-      rgba(246, 170, 28, 1) 0%,
-      rgba(98, 23, 8, 1) 42%,
-      rgba(148, 27, 12, 1) 65%,
-      rgba(188, 57, 8, 1) 85%,
-      rgba(246, 170, 28, 1) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 500% auto;
-  animation: gradient 10s ease-in-out infinite alternate;
   transition: transform 0.3s;
 }
 

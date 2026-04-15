@@ -203,7 +203,7 @@ def toggle_fav(plant_id):
     
     status = models.Favorites.toggle_favorites(user_data['user_id'], plant_id)
     
-    return redirect(request.referrer or url_for('views.browse'))
+    return redirect(url_for('views.favorites'))
     
 
 @views.route('/cart-page')

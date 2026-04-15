@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Long+Cang&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
+
 .browse-main {
     flex-grow: 1;
 }
@@ -9,10 +12,12 @@
     margin-bottom: 30px;
 }
 
-.browse-title {
+.favorite-title {
+    margin-top: 50px;
+    font-weight: 600;
     font-size: 40px;
     color: #4D6B3B;
-    margin: 0;
+    font-family: Cormorant;
 }
 
 
@@ -23,7 +28,6 @@
     gap: 30px;
 }
 
-/* 2. Style the Card */
 .product-card {
     background-color: transparent;
     transition: transform 0.2s;
@@ -36,10 +40,9 @@
     transform: translateY(-5px);
 }
 
-/* 3. The TALL Image Fix */
+
 .product-image {
     width: 100%;
-    /* This forces the 'Long' portrait look */
     height: 400px;
     overflow: hidden;
     margin-bottom: 10px;
@@ -48,13 +51,10 @@
 .product-image img {
     width: 100%;
     height: 100%;
-    /* This is the most important line: it fits the image 
-       into the tall box without stretching it */
     object-fit: cover;
     display: block;
 }
 
-/* 4. Info Styling */
 .product-info {
     display: flex;
     justify-content: space-between;
@@ -62,6 +62,7 @@
     padding-top: 5px;
     font-size: 16px;
     color: #004C13;
+    font-family: Cormorant;
 }
 
 .product-name {
@@ -73,4 +74,11 @@
     cursor: pointer;
     color: #004C13;
     font-size: 14px;
+}
+
+.empty-text {
+    text-align: center;
+    margin-top: 50px;
+    font-family: Cormorant;
+    grid-column: 1 / -1;
 }

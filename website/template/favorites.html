@@ -20,7 +20,7 @@
    <div class="browse-container">
     <main class="browse-main">
         <div class="browse-header">
-            <h1 class="browse-title">Favorites</h1>
+            <h1 class="favorite-title">Favorites</h1>
         </div>
 
         <div class="product-grid">
@@ -47,6 +47,11 @@
                     </form>
                 </div>
             </a>
+            {% else %}
+            <div class="empty-text">
+                <h2>Empty!</h2>
+                <a class="g-n-f-text" href="{{ url_for('views.browse')}}">Go n get some!</a>
+            </div>
             {% endfor %}
         </div>
     </main>

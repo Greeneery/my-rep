@@ -1,14 +1,14 @@
 CREATE DATABASE IF NOT EXISTS greenery;
 USE greenery;
 
--- 1. Categories Table (For filtering by plant types)
+-- 1. Categories Table 
 CREATE TABLE IF NOT EXISTS Categories (
     categoryID INT AUTO_INCREMENT PRIMARY KEY,
     categoryName VARCHAR(100) NOT NULL,
     description TEXT
 );
 
--- 2. Users Table (Includes Remember Me functionality)
+-- 2. Users Table 
 CREATE TABLE IF NOT EXISTS user_base(
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username TEXT NOT NULL UNIQUE,
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS user_base(
     last_login DATETIME
 ); 
 
--- 3. Plants Table (Includes attributes for filtering/browse page)
+-- 3. Plants Table 
 CREATE TABLE IF NOT EXISTS Plants (
     plantID INT AUTO_INCREMENT PRIMARY KEY,
     plantName VARCHAR(100) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS Plants (
     isPetFriendly BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (categoryID) REFERENCES Categories(categoryID)
 );
--- 4. Favorites Table (Includes the custom Notes feature)
+-- 4. Favorites Table 
 CREATE TABLE IF NOT EXISTS Favorites (
     favoriteID INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS Favorites (
     FOREIGN KEY (plantID) REFERENCES Plants(plantID)
 );
 
--- 5. Cart Table (Includes the Gift option)
+-- 5. Cart Table 
 CREATE TABLE IF NOT EXISTS Cart (
     cartID INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS Cart_Items (
     FOREIGN KEY (cartID) REFERENCES Cart(cartID) ON DELETE CASCADE,
     FOREIGN KEY (plantID) REFERENCES Plants(plantID)
 );
--- 7. Orders Table (Final Transaction)
+-- 7. Orders Table 
 CREATE TABLE IF NOT EXISTS Orders (
     orderID INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS Orders (
     FOREIGN KEY (user_id) REFERENCES user_base(user_id)
 );
 
--- 8. Order Items (Snapshot of price at purchase)
+-- 8. Order Items 
 CREATE TABLE IF NOT EXISTS Order_Items (
     orderItemID INT AUTO_INCREMENT PRIMARY KEY,
     orderID INT,
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS Order_Items (
     FOREIGN KEY (plantID) REFERENCES Plants(plantID)
 );
 
--- 9. Contact Submissions
+-- 9. Contact Submissions (LOL WE ARE NOT EVEN USING THIS ONE)
 CREATE TABLE IF NOT EXISTS Contact_Submissions (
     submissionID INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
