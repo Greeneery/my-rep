@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Long+Cang&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
 
+/* 
 body {
     margin: 0;
     padding: 0;
@@ -61,6 +62,91 @@ body {
 .nav-icons {
     display: flex;
     gap: 25px;
+    align-items: center;
+}
+
+.nav-icons a {
+    text-decoration: none;
+    color: #004C13;
+    display: flex;
+    align-items: center;
+}
+
+.nav-icons svg {
+    width: 22px;
+    height: 22px;
+}
+
+.nav-icons a:hover {
+    color: #76A25C;
+} */
+body {
+    font-family: 'Cormorant Garamond', serif;
+    background-color: #FFFDED;
+    color: #004C13;
+    margin: 0;
+    padding-top: 0px;
+    overflow-x: hidden;
+}
+
+/* Navbar styles */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 30px;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #e8e8e8;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-sizing: border-box;
+    height: 60px;
+}
+
+.logo {
+    font-size: 32px;
+    font-family: 'Long Cang';
+    font-weight: 100;
+    color: #4D6B3B;
+    text-decoration: none;
+    line-height: 1;
+}
+
+.logo:hover {
+    color: #76A25C;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #004C13;
+    font-size: 16px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.nav-links a:hover {
+    color: #76A25C;
+}
+
+.nav-icons {
+    display: flex;
+    gap: 15px;
     align-items: center;
 }
 
