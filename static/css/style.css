@@ -5,6 +5,7 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: #FFFDED;
 }
 
 
@@ -12,7 +13,7 @@ body {
 .navbar-brand {
     color: #4d6b3b !important;
     font-family: Long Cang;
-    font-weight: 600;
+    font-weight: 400;
     font-size: 40px;
     transition: transform 0.3s;
 }
@@ -23,17 +24,18 @@ body {
 }
 
 .navbar {
-    background-color: aliceblue;
+    background-color: #FFFFFF;
     position: sticky;
     top: 0;
     z-index: 1000;
     transition: 0.3s ease-in-out;
+    border-bottom: 1px solid rgb(232, 232, 232);
 }
 
 .nav-link {
     color: #4d6b3b;
     font-family: Cormorant;
-    font-weight: 600;
+    font-weight: bolder;
     font-size: 20px;
 }
 
@@ -44,9 +46,6 @@ body {
     font-size: 20px;
 }
 
-.nav-link-btn {
-    background-color: #3c532e;
-}
 
 .nav-effect {
     background: rgba(255, 255, 255, 0.6);
@@ -63,6 +62,7 @@ body {
     display: flex;
     gap: 25px;
     align-items: center;
+    transition: 0.3s ease-in-out;
 }
 
 .nav-icons a {
@@ -75,8 +75,47 @@ body {
 .nav-icons svg {
     width: 22px;
     height: 22px;
+    transition: 0.3s ease-in-out;
 }
 
 .nav-icons a:hover {
     color: #76A25C;
 } 
+
+.toast-container {
+    position: fixed;
+    top: 90px; 
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.custom-toast {
+    padding: 15px 25px;
+    border-radius: 8px;
+    color: #FEFAE0;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: translateX(120%);
+    animation: slideIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.toast-success {
+    background-color: #798645; 
+}
+
+.toast-info {
+    background-color: #666;
+}
+
+
+@keyframes slideIn {
+    to {
+        transform: translateX(0);
+    }
+}

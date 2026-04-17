@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm, SignupForm
 import models
@@ -20,6 +20,12 @@ def home():
 def browse():
     token = request.cookies.get("auth_token")
     user_data, error = auth.verify_token(token)
+    
+    user_favorites = []
+    
+    if user_data:
+        fav_data = models.Favorites.get_user_favorites(user_data['user_id'])
+        user_favorites = [fav['plantID'] for fav in fav_data]
     
     lowLightFilter = request.args.get('llight')
     mediumLightFilter = request.args.get('mlight')
@@ -77,7 +83,7 @@ def browse():
         
     real_plants = execute_query(query, tuple(params), fetch="all")
         
-    return render_template("browse.html", user = user_data, plants = real_plants)
+    return render_template("browse.html", user = user_data, plants = real_plants, user_favorites=user_favorites)
 
 @views.route('/contact-page')
 def contact():
@@ -240,6 +246,11 @@ def toggle_fav(plant_id):
         return redirect(url_for('views.login'))
     
     status = models.Favorites.toggle_favorites(user_data['user_id'], plant_id)
+    
+    if "added" in status:
+        flash("Added this plant to your favorite page! ;3", category="success")
+    else:
+        flash("Removed this plant from your favorite page! >:3", category="info")
     
     return redirect(url_for('views.favorites'))
     
