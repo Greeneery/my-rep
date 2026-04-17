@@ -1,0 +1,47 @@
+.confirm-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.confirm-card {
+    background-color: white;
+    border: 3px solid #004C13; 
+    border-radius: 50px;
+    padding: 150px 200px;
+    text-align: center;
+    max-width: 700px;
+    width: 90%;
+    box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.9);
+}
+
+.confirm-card h1 {
+    color: #004C13;
+    font-size: 3.3rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.confirm-text {
+    color: #004C13;
+    font-size: 1.5rem;
+    font-weight: 450;
+    line-height: 0.6;
+    margin-bottom: 40px;
+}
+
+.browse-btn {
+    display: inline-block;
+    background-color: #003121;
+    color: white;
+    text-decoration: none;
+    padding: 15px 60px;
+    border-radius: 30px;
+    font-size: 1.3rem;
+    font-family: 'Prata', serif;
+}
+
+.browse-btn:hover {
+   background-color: #007B53;
+}

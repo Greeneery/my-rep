@@ -86,11 +86,49 @@ def contact():
     return render_template("contact.html", user = user_data)
 
 @views.route('/check-out-page')
+@login_required
 def checkout():
     token = request.cookies.get("auth_token")
     user_data, error = auth.verify_token(token)
     
-    return render_template("checkout.html")
+    if user_data is None:
+        return redirect(url_for('views.login'))
+    
+    full_user = models.UserBase.get_by_id(user_data['user_id'])
+    
+    cart_id = models.Cart.get_or_create_cart(user_data['user_id'])
+    items = models.Cart.get_items_with_details(cart_id)
+    
+    total = sum(item['price'] * item['quantity'] for item in items) if items else 0
+    
+    return render_template("checkout.html", user = full_user.to_dict(), total = total, items=items)
+
+@views.route('/process-checkout', methods=['POST'])
+@login_required
+def process_checkout():
+    token = request.cookies.get("auth_token")
+    user_data, error = auth.verify_token(token)
+    
+    if user_data is None:
+        return redirect(url_for('views.login'))
+    
+    user_id = user_data['user_id']
+    
+    cart_id = models.Cart.get_or_create_cart(user_id)
+    items = models.Cart.get_items_with_details(cart_id)
+    
+    if not items:
+        return redirect(url_for('views.cart'))
+    
+    for item in items:
+        update_quantity = "UPDATE Plants SET stockQuantity = stockQuantity - %s WHERE plantID = %s"
+        execute_query(update_quantity, (item['quantity'], item['plantID']), fetch="none")
+        
+    clear_cart = "DELETE FROM Cart_items WHERE cartID = %s"
+    execute_query(clear_cart, (cart_id,), fetch="none")
+    
+    return redirect(url_for('views.purchase_confirm'))
+    
 
 @views.route('/detail-page/<int:plant_id>')
 def detail(plant_id):
@@ -220,7 +258,7 @@ def cart():
     
     total = sum(item['price'] * item['quantity'] for item in items) if items else 0
         
-    return render_template("cart.html", user = user_data)
+    return render_template("cart.html", user = user_data, items = items, total = total)
 
 @views.route('/add-to-cart/<int:plant_id>', methods=['POST'])
 def add_to_cart(plant_id):
@@ -245,6 +283,45 @@ def add_to_cart(plant_id):
         execute_query(insert_query, (cart_id, plant_id), fetch="none")
     
     return redirect(url_for('views.cart'))
+
+@views.route('/remove-from-cart/<int:cart_item_id>', methods=['POST'])
+@login_required
+def remove_from_cart(cart_item_id):
+    token = request.cookies.get("auth_token")
+    user_data, error = auth.verify_token(token)
+    
+    delete_query = "DELETE FROM Cart_Items WHERE cartItemID = %s"
+    execute_query(delete_query, (cart_item_id,), fetch="none")
+    
+    return redirect(url_for('views.cart'))
+
+@views.route('/update-cart/<int:cart_item_id>/<action>', methods=['POST'])
+@login_required
+def update_cart(cart_item_id, action):
+    token = request.cookies.get("auth_token")
+    user_data, error = auth.verify_token(token)
+    
+    check_query = "SELECT quantity FROM Cart_Items WHERE cartItemID = %s"
+    item = execute_query(check_query, (cart_item_id,), fetch="one")
+    
+    if item:
+        current_quantity = item['quantity']
+        
+        if action == 'increase':
+            new_quantity = current_quantity + 1
+            update_query = "UPDATE Cart_Items SET quantity = %s WHERE cartItemID = %s"
+            execute_query(update_query, (new_quantity, cart_item_id), fetch="none")
+        elif action == 'decrease':
+            new_quantity = current_quantity - 1
+            if new_quantity > 0:
+                update_query = "UPDATE Cart_Items SET quantity = %s WHERE cartItemID = %s"
+                execute_query(update_query, (new_quantity, cart_item_id), fetch="none")
+            else:
+                delete_query = "DELETE FROM Cart_Items WHERE cartItemID = %s"
+                execute_query(delete_query, (cart_item_id,), fetch="none")
+    
+    return redirect(url_for('views.cart'))
+    
         
 
 @views.route('/email-confirm-page')
@@ -260,3 +337,5 @@ def purchase_confirm():
 @views.route('/index')
 def index():
     return redirect(url_for("views.login"), 303)
+
+

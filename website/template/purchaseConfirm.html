@@ -1,9 +1,35 @@
 {% extends "base.html" %}
 
-{% block title %}Purchase Confirm Page{% endblock title %}
+{% block css %}
+{{ super() }}
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='css/purchase_confirm.css') }}" />
+<link rel="icon" type="image/x-icon"
+    href="{{ url_for('static', filename='css/image/icon/iconGreenery.ico') }}">
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
+    rel="stylesheet" />
+<link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+{% endblock %}
 
-{% block page_title %}Purhase confirm{% endblock page_title %}
 
 {% block content %}
 
-{% endblock content %}
+<html>
+<main class="confirm-container">
+        <div class="confirm-card">
+            <h1>Thank you for your order!</h1>
+
+            <div class="confirm-text">
+                <p>Your order has been successfully placed.</p>
+                <p>We'll process your order and send you a confirmation email shortly.</p>
+            </div>
+
+            <a href="{{ url_for('views.browse') }}" class="browse-btn">Continue Shopping</a>
+        </div>
+</main>
+</html>
+
+{% endblock %}

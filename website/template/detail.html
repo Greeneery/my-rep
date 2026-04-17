@@ -19,13 +19,15 @@
 <div class="description-container">
     <div class="product-visuals">
         <div class="main-image">
-            <img src="{{ url_for('static', filename='images/' + plant['imageUrl']) }}"
+            <img
+                src="{{ url_for('static', filename='images/' + plant['imageUrl']) }}"
                 alt="{{ plant['plantName'] }}">
         </div>
     </div>
 
     <div class="product-info-panel">
-        <nav class="breadcrumb">Home / Indoor Plants / {{ plant['plantName'] }}</nav>
+        <nav class="breadcrumb">Home / Indoor Plants / {{ plant['plantName']
+            }}</nav>
 
         <h1 class="product-title">{{ plant['plantName'] }}</h1>
         <p class="product-price">${{ "%.2f"|format(plant['price']) }}</p>
@@ -47,19 +49,34 @@
             </div>
             <div class="detail-item">
                 <span class="detail-label">Size</span>
-                <span class="detail-value">{{ plant['plantSize']|default('Medium')
+                <span class="detail-value">{{
+                    plant['plantSize']|default('Medium')
                     }}</span>
             </div>
             <div class="detail-item">
                 <span class="detail-label">Pet Friendly</span>
-                <span class="detail-value">{{ 'Yes' if plant['isPetFriendly'] == 1 else
+                <span class="detail-value">{{ 'Yes' if plant['isPetFriendly'] ==
+                    1 else
                     'No' }}</span>
             </div>
         </div>
 
-        <div class="action-buttons">
-            <button class="btn-add-cart">ADD TO CART</button>
-            <button class="btn-wishlist">♡</button>
+        <div class="action-buttons"
+            style="display: flex; gap: 15px; align-items: center;">
+
+            <form
+                action="{{ url_for('views.add_to_cart', plant_id=plant['plantID']) }}"
+                method="POST">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="btn-add-cart">ADD TO CART</button>
+            </form>
+
+            <form
+                action="{{ url_for('views.toggle_fav', plant_id=plant['plantID']) }}"
+                method="POST">
+                <button type="submit" class="btn-wishlist">♡</button>
+            </form>
+
         </div>
     </div>
 </div>
