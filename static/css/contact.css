@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
 
 .contact-section {
-  padding: 80px 10%;
+  padding: 80px 5%;
 }
 
 .contact-container {
@@ -13,7 +13,7 @@
 
 .contact-info {
   flex: 1;
-  background: rgb(0, 82, 0);
+  background: #4D6B3B;
   color: white;
   padding: 40px;
   border-radius: 15px;
@@ -69,7 +69,7 @@
 
 .contact-form {
   flex: 2;
-  background: rgb(0, 82, 0);
+  background: #4D6B3B;
   padding: 40px;
   border-radius: 15px;
   font-family: Cormorant;
@@ -107,7 +107,7 @@
   padding-left: 25px;
   font-weight: 500;
   color: #666;
-  border-radius: 50px;
+  border-radius: 20px;
 }
 
 .contact-left textarea {
@@ -133,7 +133,7 @@
   gap: 10px;
   border: none;
   border-radius: 50px;
-  background: linear-gradient(270deg, #ff944f, #fa6d86);
+  background: #003121;
   cursor: pointer;
 }
 
@@ -147,6 +147,7 @@
   overflow: hidden;
   border-radius: 20px;
   transition: all 0.5s ease;
+  align-self: flex-end;
 }
 
 .holographic-card-2 h2 {
@@ -174,7 +175,7 @@
 
 .holographic-card-2:hover {
   transform: scale(1);
-  box-shadow: 0 0 20px rgba(255, 255, 0, 0.5);
+  box-shadow: 0 0 20px rgba(44, 255, 125, 0.5);
 }
 
 .holographic-card-2:hover::before {
