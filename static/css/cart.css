@@ -16,7 +16,7 @@
 
 .cart-main {
     flex: 1;
-    background-color: #3f6c3c;
+    background-color: #4D6B3B;
     border-radius: 34px;
     padding: 28px 30px 30px;
     color: #FEFAE0;
@@ -126,7 +126,7 @@
 
 .cart-summary {
     width: 390px;
-    background-color: #3f6c3c;
+    background-color: #4D6B3B;
     border-radius: 26px;
     padding: 34px 30px;
     color: #FEFAE0;
@@ -153,9 +153,9 @@
     display: block;
     text-align: center;
     text-decoration: none;
-    background-color: #798645;
+    background-color: #003121;
     color: #FEFAE0;
-    border-radius: 999px;
+    border-radius: 10px;
     padding: 16px 24px;
     font-size: 24px;
     margin-top: 34px;
@@ -163,7 +163,7 @@
 }
 
 .checkout-btn:hover {
-    background-color: rgb(97, 111, 55);
+    background-color: #014b32;
     color: #FEFAE0;
 }
 

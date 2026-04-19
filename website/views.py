@@ -12,7 +12,7 @@ from decimal import Decimal
 views = Blueprint('views', __name__, template_folder="template")
 
 VALID_CODE = {
-    'FREETHEDEV': 0.2, 'SUS404': 10.00 , 'WELCOME10': 0.1
+    'FREETHEDEV': 0.2, 'SUS404': 10.00 , 'WELCOME10': 0.1, 'TOLOVERUPEAK': 0.99, 'FREEGIOVANNI': 0.5
 }
 
 @views.route('/')
