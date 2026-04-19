@@ -2,14 +2,12 @@
 
 {% block css %}
 {{ super() }}
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='css/checkout.css') }}" />
 <link rel="icon" type="image/x-icon"
     href="{{ url_for('static', filename='css/image/icon/iconGreenery.ico') }}">
-<link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
-    rel="stylesheet" />
-<link
-    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap"
-    rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Prata&display=swap"
+    rel="stylesheet">
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -18,280 +16,135 @@
 
 {% block content %}
 
-<style>
-    .content-wrapper 
-    {
-        padding: 0 !important;
-        margin: 0 !important;
-        width: 100% !important;
-        max-width: none !important;
-    }
+<div class="checkout-container">
+    <div class="halves-container">
 
-    html, body 
-    {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-</style>
+        <div class="div-left-half">
+            <section>
+                <h1 class="checkout-title">CHECKOUT</h1>
 
-    <div class="checkout-container">
-            <div class= "halves-container">
-                <div class= "div-left-half">
-                        <section>
-                        <h1 style= "color: #4D6B3B; font-family: 'Prata', serif;">CHECKOUT</h1>
-                            <div>
-                                <h3 style= "color: #4D6B3B; font-family: 'Prata', serif;">Contact:</h3>
-                                <div class="checkout-details">
-                                    <p class="checkout-text">{{ user['first_name'] }} {{ user['last_name'] }}</p>
-                                    <p class="checkout-text">{{ user['email'] }}</p>
+                <form action="{{ url_for('views.process_checkout') }}"
+                    method="POST">
+                    <div>
+                        <h3 class="checkout-section-title">Contact:</h3>
+                        <div class="checkout-details">
+                            <p class="checkout-text">{{ user['first_name'] }} {{
+                                user['last_name'] }}</p>
+                            <p class="checkout-text">{{ user['email'] }}</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="checkout-section-title">Delivery:</h3>
+                        <div class="checkout-details"
+                            style="border-radius: 12px 12px 0 0;">
+                            <div class="custom-dropdown" id="delivery-dropdown">
+                                <div class="selected-option">
+                                    <span class="selection-text">Doorstep
+                                        Delivery</span>
+                                    <i class="fas fa-chevron-down"></i>
                                 </div>
-                            </div>
-
-                            <div>
-                                <h3 style= "color: #4D6B3B; font-family: 'Prata', serif;">Delivery:</h3>
-                                <div class="checkout-details">
-                                    <p class="checkout-text">Ulgabuga Stone Cart Method</p>
+                                <div class="dropdown-options">
+                                    <div class="dropdown-option"
+                                        data-value="doorstep">Doorstep
+                                        Delivery</div>
+                                    <div class="dropdown-option"
+                                        data-value="pickup">In-Store
+                                        Pickup</div>
+                                    <div class="dropdown-option"
+                                        data-value="underground">Underground</div>
                                 </div>
-                            </div>
-
-                            <div>
-                                <h3 style= "color: #4D6B3B; font-family: 'Prata', serif;">Shipping Method:</h3>
-                                <div class="checkout-details">
-                                    <p class="checkout-text">Supa Sonic</p>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h3 style= "color: #4D6B3B; font-family: 'Prata', serif;">Payment Total:</h3>
-                                <div class="checkout-details">
-                                    <p class="checkout-text">${{ total }}</p>
-                                </div>
-                            </div>
-
-                            <form action="{{ url_for('views.process_checkout') }}" method="POST">
-                                <button class="checkout-button">Make Payment</button>
-                            </form>
-                    </section>
-                </div>
-
-                <div class= "div-right-half">
-                    <h2 class="summary-title">Order Summary</h2>
-
-                        {% for item in cart_items %}
-                            <div class="summary-card">
-                                <img src="{{ url_for('static', filename='images/' + item['imageUrl']) }}" class="summary-image" alt="{{ item['plantName'] }}">
-
-                                <div class="summary-info">
-                                    <p class="summary-name">{{ item['plantName'] }}</p>
-                                    <p class="summary-price">${{ item['price'] }}</p>
-                                </div>
-                            </div>
-                        {% endfor %}
-
-                        <div class="summary-box">
-                            <div class="discount-box">
-                                <input type="text" name="discount_code" placeholder="Discount Code">
-                                <button class="apply-btn">Apply</button>
-                            </div>
-                        
-                            <div class="summary-row">
-                                <span>Subtotal</span>
-                                <span>${{ total }}</span>
-                            </div>
-
-                            <div class="summary-total">
-                                <span>Total</span>
-                                <span>${{ total }}</span>
+                                <input type="hidden" name="delivery_method"
+                                    value="doorstep" class="hidden-input">
                             </div>
                         </div>
                     </div>
+
+                    <div>
+                        <h3 class="checkout-section-title">Shipping Method:</h3>
+                        <div class="checkout-details"
+                            style="border-radius: 12px 12px 0 0;">
+                            <div class="custom-dropdown" id="shipping-dropdown">
+                                <div class="selected-option">
+                                    <span class="selection-text">Standard
+                                        Shipping (3-5 Days)</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="dropdown-options">
+                                    <div class="dropdown-option"
+                                        data-value="standard">Standard Shipping
+                                        (3-5 Days)</div>
+                                    <div class="dropdown-option"
+                                        data-value="express">Express Shipping
+                                        (1-2 Days)</div>
+                                    <div class="dropdown-option"
+                                        data-value="supa_sonic">Supa Sonic (Same
+                                        Day)</div>
+                                </div>
+                                <input type="hidden" name="shipping_method"
+                                    value="standard" class="hidden-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="checkout-section-title">Payment Total:</h3>
+                        <div class="checkout-details">
+                            <p class="checkout-text"
+                                style="font-family: Montserrat;">${{
+                                "%.2f"|format(total)
+                                }}</p>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="checkout-button">Make
+                        Payment</button>
+                </form>
+            </section>
+        </div>
+
+        <div class="div-right-half">
+            <h2 class="summary-title">Order Summary</h2>
+
+            <div class="receipt-list">
+                {% for item in items %}
+                <div class="receipt-item">
+                    <span class="receipt-name">{{ item['quantity'] }} x {{ item['plantName'] }}</span>
+                    <span class="receipt-price">${{ "%.2f"|format(item['price'])
+                        }}</span>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="summary-box">
+                <form action="{{ url_for('views.apply_discount') }}"
+                    method="POST" class="discount-box">
+                    <input type="text" name="discount_code"
+                        placeholder="Discount Code" required>
+                    <button type="submit" class="apply-btn">Apply</button>
+                </form>
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span style="font-family: Montserrat;">${{ "%.2f"|format(subtotal) }}</span>
+                </div>
+
+                {% if discount_amount > 0 %}
+                <div class="summary-row" style="color: #BD081C;">
+                    <span>Discount ({{ session.get('discount_code') }})</span>
+                    <span style="font-family: Montserrat;">-${{ "%.2f"|format(discount_amount) }}</span>
+                </div>
+                {% endif %}
+
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span style="font-family: Montserrat;">${{ "%.2f"|format(total) }}</span>
                 </div>
             </div>
+        </div>
+
     </div>
-
-    <style>
-        .halves-container
-        {
-            display: flex;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .div-left-half
-        {
-            width: 50%;
-            padding: 40px;
-        }
-
-        .checkout-details
-        {
-            background-color: #D9D9D9;
-            width: 75%;
-            height: 80px;
-            margin-bottom: 20px;
-        }
-
-        .checkout-container
-        {
-            width: 100%;
-            height: 100vh;
-        }
-
-        .checkout-button
-        {
-            background-color:#003121;
-            font-family: 'Prata', serif;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 15px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .checkout-button:hover
-        {
-            background-color: #007B53;
-        }
-
-        .div-right-half 
-        {
-            width: 50%;
-            background-color: #4D6B3B;
-            padding: 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            color: white;
-        }
-
-        .order-summary 
-        {
-            width: 100%;
-        }
-
-        .summary-title 
-        {
-            font-family: 'Prata', serif;
-            font-size: 2rem;
-            margin-bottom: 30px;
-        }
-
-        .summary-item 
-        {
-            display: flex;
-            justify-content: space-between;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #4D6B3B;
-            font-family: 'Prata', serif;
-        }
-
-        .summary-total 
-        {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            font-size: 1.4rem;
-            margin-top: 20px;
-            color: #4D6B3B;
-            font-family: 'Prata', serif;
-        }
-
-        .summary-card 
-        {
-            background: #FEFAE0;
-            border-radius: 15px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .summary-image 
-        {
-            width: 80px;
-            height: 80px;
-            border-radius: 10px;
-            object-fit: cover;
-            margin-right: 15px;
-        }
-
-        .summary-info 
-        {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .summary-name 
-        {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin: 0;
-            font-family: 'Prata', serif;
-        }
-
-        .summary-price 
-        {
-            font-size: 1rem;
-            margin: 5px 0 0 0;
-            font-family: 'Prata', serif;
-        }
-
-        .summary-row 
-        {
-            display: flex;
-            justify-content: space-between;
-            margin: 10px 0;
-            font-size: 1.1rem;
-            font-weight: bold;
-            font-family: 'Prata', serif;
-            color: #4D6B3B;
-        }
-
-        .summary-box
-        {
-            background: #FEFAE0;
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 25px;
-            color: #003121;
-        }
-
-        .discount-box 
-        {
-            display: flex;
-            margin-bottom: 20px;
-        }
-
-        .discount-box input 
-        {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            font-size: 1rem;
-        }
-
-        .apply-btn
-        {
-            padding: 12px 18px;
-            background: #003121;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            margin-left: 10px;
-            cursor: pointer;
-        }
-
-        .checkout-text {
-            margin: 5px 0;
-            font-size: 1rem;
-            color: #003121;
-        }
-
-    </style>
-
+</div>
+<script
+    src="{{ url_for('static', filename='js/dropdown.js') }}"></script>
 {% endblock %}

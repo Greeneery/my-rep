@@ -1,20 +1,35 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm, SignupForm
 import models
 import auth
 from sql import execute_query
 from auth import login_required
+from decimal import Decimal
+
 
 
 views = Blueprint('views', __name__, template_folder="template")
 
+VALID_CODE = {
+    'FREETHEDEV': 0.2, 'SUS404': 10.00 , 'WELCOME10': 0.1
+}
+
 @views.route('/')
-@login_required
 def home():
     token = request.cookies.get("auth_token")
     user_data, error = auth.verify_token(token)
-    return render_template("home.html", user = user_data)
+    
+    random_query = "SELECT * FROM Plants ORDER BY RAND() LIMIT 12"
+    featured_plants = execute_query(random_query, fetch="all")
+    
+    sus_query = "SELECT * FROM Plants ORDER BY plantID DESC LIMIT 10"
+    sus_plants = execute_query(sus_query, fetch="all")
+    
+    low_qty_query = "SELECT * FROM Plants WHERE stockQuantity <= 10 ORDER BY stockQuantity ASC"
+    low_qty_plants = execute_query(low_qty_query, fetch="all")
+    
+    return render_template("home.html", user = user_data, featured_plants=featured_plants, sus_plants = sus_plants, low_qty_plants= low_qty_plants)
 
 @views.route('/browse-page')
 def browse():
@@ -25,7 +40,7 @@ def browse():
     
     if user_data:
         fav_data = models.Favorites.get_user_favorites(user_data['user_id'])
-        user_favorites = [fav['plantID'] for fav in fav_data]
+        user_favorites = [fav['plantID'] for fav in fav_data] #type: ignore
     
     lowLightFilter = request.args.get('llight')
     mediumLightFilter = request.args.get('mlight')
@@ -105,9 +120,19 @@ def checkout():
     cart_id = models.Cart.get_or_create_cart(user_data['user_id'])
     items = models.Cart.get_items_with_details(cart_id)
     
-    total = sum(item['price'] * item['quantity'] for item in items) if items else 0
-    
-    return render_template("checkout.html", user = full_user.to_dict(), total = total, items=items)
+    subtotal = sum(item['price'] * item['quantity'] for item in items) #type: ignore
+    discount_amnt = 0
+    if 'discount_code' in session:
+        discount_val = session['discount_value']
+        
+        if discount_val < 1:
+            discount_amnt = subtotal * Decimal(discount_val)
+        else:
+            discount_amnt = Decimal(discount_val)
+            
+    total = max(0, subtotal - discount_amnt)
+      
+    return render_template("checkout.html", user = full_user.to_dict(), total = total, items=items, subtotal=subtotal, discount_amount=discount_amnt) #type: ignore
 
 @views.route('/process-checkout', methods=['POST'])
 @login_required
@@ -130,9 +155,13 @@ def process_checkout():
         update_quantity = "UPDATE Plants SET stockQuantity = stockQuantity - %s WHERE plantID = %s"
         execute_query(update_quantity, (item['quantity'], item['plantID']), fetch="none")
         
+    session.pop('discount_code', None)
+    session.pop('discount_value', None)
+        
     clear_cart = "DELETE FROM Cart_items WHERE cartID = %s"
     execute_query(clear_cart, (cart_id,), fetch="none")
-    
+  
+    flash(f'Order placed successfully! >:3', category="success")
     return redirect(url_for('views.purchase_confirm'))
     
 
@@ -140,6 +169,12 @@ def process_checkout():
 def detail(plant_id):
     token = request.cookies.get("auth_token")
     user_data, error = auth.verify_token(token)
+    
+    user_favorites = []
+    
+    if user_data:
+        fav_data = models.Favorites.get_user_favorites(user_data['user_id'])
+        user_favorites = [fav['plantID'] for fav in fav_data] #type: ignore
     
     plant = None
     
@@ -151,8 +186,8 @@ def detail(plant_id):
     except Exception as e:
         print(f"Database error: {e}")
         plant = None
-    
-    return render_template("detail.html", user =user_data, plant = plant)
+        
+    return render_template("detail.html", user =user_data, plant = plant, user_favorites=user_favorites)
 
 @views.route('/log-in-page', methods=["GET", "POST"])
 def login():
@@ -252,7 +287,7 @@ def toggle_fav(plant_id):
     else:
         flash("Removed this plant from your favorite page! >:3", category="info")
     
-    return redirect(url_for('views.favorites'))
+    return redirect(request.referrer or url_for('views.favorites'))
     
 
 @views.route('/cart-page')
@@ -347,6 +382,20 @@ def purchase_confirm():
 
 @views.route('/index')
 def index():
-    return redirect(url_for("views.login"), 303)
+    return redirect(url_for("views.home"), 303)
+
+@views.route('/apply-discount', methods=['POST'])
+def apply_discount():
+    discount_code = request.form.get('discount_code').strip().upper() # type: ignore
+    
+    if discount_code in VALID_CODE:
+        session['discount_code'] = discount_code
+        session['discount_value'] = VALID_CODE[discount_code]
+        flash(f'A! Discount applied >;3 Enjoy!', category='success')
+    else:
+        flash(f'Invalid code! LOL! Try again bruv :P', category='error')
+        
+    return redirect(url_for('views.checkout'))
+    
 
 

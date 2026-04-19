@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
+
 .confirm-container {
     display: flex;
     justify-content: center;
@@ -21,14 +23,16 @@
     font-size: 3.3rem;
     font-weight: 600;
     margin-bottom: 30px;
+    font-family: Cormorant;
 }
 
 .confirm-text {
     color: #004C13;
     font-size: 1.5rem;
     font-weight: 450;
-    line-height: 0.6;
+    line-height: 1;
     margin-bottom: 40px;
+    font-family: Cormorant;
 }
 
 .browse-btn {
@@ -39,9 +43,11 @@
     padding: 15px 60px;
     border-radius: 30px;
     font-size: 1.3rem;
-    font-family: 'Prata', serif;
+    font-family: Cormorant;
+    transition: 0.3s ease-in-out;
 }
 
 .browse-btn:hover {
    background-color: #007B53;
+   color: white;
 }

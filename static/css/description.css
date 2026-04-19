@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 .description-container {
     display: flex;
     gap: 60px;
@@ -43,7 +45,7 @@
     font-size: 36px;
     font-family: Cormorant;
     color: #004C13;
-    margin: 0 0 15px 0;
+    margin: 0;
     font-weight: 600;
 }
 
@@ -52,6 +54,7 @@
     color: #4D6B3B;
     margin: 0 0 30px 0;
     font-weight: 500;
+    font-family: Montserrat;
 }
 
 .product-description {
@@ -87,17 +90,33 @@
     font-weight: 500;
 }
 
+
 .action-buttons {
     display: flex;
     gap: 15px;
+    width: 100%; 
+    align-items: center;
 }
 
+
+.action-buttons form:first-child {
+    flex: 1; 
+}
+
+.fav-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0; 
+}
+
+
 .btn-add-cart {
-    flex: 1;
+    width: 100%; 
+    height: 50px; 
     background: #004C13;
     color: white;
     border: none;
-    padding: 16px 30px;
     font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
@@ -111,21 +130,56 @@
     background: #003a0f;
 }
 
-.btn-wishlist {
-    width: 55px;
-    background: white;
+.btn-back {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-family: Cormorant;
+    font-size: 14px;
+    font-weight: 600;
+    color: #888888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-back:hover {
+    color: #004C13;
+}
+
+.favorite-icon {
+    width: 50px; 
+    height: 50px; 
+    background: transparent;
     border: 1px solid #004C13;
     color: #004C13;
-    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease-in-out;
     border-radius: 2px;
 }
 
-.btn-wishlist:hover {
-    background: #004C13;
-    color: white;
+.favorite-icon svg {
+    width: 22px; 
+    height: 22px;
 }
+
+.favorite-icon:hover {
+    background: #004C13;
+    color: white; 
+}
+
+.title-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+
 
 @media (max-width: 768px) {
     .description-container {

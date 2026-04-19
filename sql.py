@@ -201,7 +201,7 @@ class SqlManager:
         while attempts <= self.MAX_RETRIES:
             try:
                 self._ensure_connection()
-                cur = self._conn.cursor()
+                cur = self._conn.cursor() #type: ignore
                 try:
                     cur.execute(task.query, task.params)
                     if task.fetch == "all":
@@ -211,7 +211,7 @@ class SqlManager:
                         row = cur.fetchone()
                         return row
                     elif task.fetch == "none":
-                        self._conn.commit()
+                        self._conn.commit() #type: ignore
                         return cur.lastrowid
                     else:
                         return None

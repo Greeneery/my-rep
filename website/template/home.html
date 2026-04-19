@@ -15,7 +15,108 @@
 {% endblock %}
 
 {% block content %}
-<section class="fade-in-bottom">
+{% if not user %}
+<section class="home-sec fade-in-bottom">
+    <div class="home-background">
+        <div class="home-text">
+            <h3 class="welcome">
+                Welcome, Greenery!
+            </h3>
+            <p class="description">Feel free to check out plants! Scroll down
+                for more!</p>
+        </div>
+    </div>
+</section>
+
+<section class="popular-section ">
+    <div class="popular-container">
+        <h2 class="popular-title">Random Plants of Today!</h2>
+
+        <div class="popular-scroll-wrapper">
+            <div class="popular-scroll">
+                {% for plant in featured_plants %}
+                <a
+                    href="{{ url_for('views.detail', plant_id=plant['plantID']) }}"
+                    class="popular-card">
+                    <div class="popular-image">
+                        <img
+                            src="{{ url_for('static', filename='images/' + plant['imageUrl']) }}"
+                            alt="{{ plant['plantName'] }}">
+                    </div>
+                    <div class="popular-info">
+                        <span class="popular-name">{{ plant['plantName']
+                            }}</span>
+                        <span class="popular-price">${{
+                            "%.2f"|format(plant['price']) }}</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="popular-section ">
+    <div class="popular-container">
+        <div class="featured-header">
+            <h2>Best Sellers</h2>
+            <a href="{{ url_for('views.browse') }}" class="see-all-link">SEE
+                ALL</a>
+        </div>
+
+        <div class="popular-scroll-wrapper">
+            <div class="popular-scroll">
+                {% for plant in sus_plants %}
+                <a
+                    href="{{ url_for('views.detail', plant_id=plant['plantID']) }}"
+                    class="popular-card">
+                    <div class="popular-image">
+                        <img
+                            src="{{ url_for('static', filename='images/' + plant['imageUrl']) }}"
+                            alt="{{ plant['plantName'] }}">
+                    </div>
+                    <div class="popular-info">
+                        <span class="popular-name">{{ plant['plantName']
+                            }}</span>
+                        <span class="popular-price">${{
+                            "%.2f"|format(plant['price']) }}</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="popular-section ">
+    <div class="popular-container">
+        <div class="featured-header">
+            <h2>Running Out Soon!</h2>
+        </div>
+
+        <div class="popular-scroll-wrapper">
+            <div class="popular-scroll">
+                {% for plant in low_qty_plants %}
+                <a
+                    href="{{ url_for('views.detail', plant_id=plant['plantID']) }}"
+                    class="popular-card">
+                    <div class="popular-image">
+                        <img
+                            src="{{ url_for('static', filename='images/' + plant['imageUrl']) }}"
+                            alt="{{ plant['plantName'] }}">
+                    </div>
+                    <div class="popular-info">
+                        <span class="popular-name">{{ plant['plantName']
+                            }}</span>
+                        <span class="popular-price">${{
+                            "%.2f"|format(plant['price']) }}</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% else %}
+<section class="home-sec fade-in-bottom">
     <div class="home-background">
         <div class="home-text">
             <h3 class="welcome">
@@ -26,4 +127,94 @@
         </div>
     </div>
 </section>
+
+<section class="popular-section ">
+    <div class="popular-container">
+        <h2 class="popular-title">Random Plants of Today!</h2>
+
+        <div class="popular-scroll-wrapper">
+            <div class="popular-scroll">
+                {% for plant in featured_plants %}
+                <a
+                    href="{{ url_for('views.detail', plant_id=plant['plantID']) }}"
+                    class="popular-card">
+                    <div class="popular-image">
+                        <img
+                            src="{{ url_for('static', filename='images/' + plant['imageUrl']) }}"
+                            alt="{{ plant['plantName'] }}">
+                    </div>
+                    <div class="popular-info">
+                        <span class="popular-name">{{ plant['plantName']
+                            }}</span>
+                        <span class="popular-price">${{
+                            "%.2f"|format(plant['price']) }}</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="popular-section ">
+    <div class="popular-container">
+        <div class="featured-header">
+            <h2>Best Sellers</h2>
+            <a href="{{ url_for('views.browse') }}" class="see-all-link">SEE
+                ALL</a>
+        </div>
+
+        <div class="popular-scroll-wrapper">
+            <div class="popular-scroll">
+                {% for plant in sus_plants %}
+                <a
+                    href="{{ url_for('views.detail', plant_id=plant['plantID']) }}"
+                    class="popular-card">
+                    <div class="popular-image">
+                        <img
+                            src="{{ url_for('static', filename='images/' + plant['imageUrl']) }}"
+                            alt="{{ plant['plantName'] }}">
+                    </div>
+                    <div class="popular-info">
+                        <span class="popular-name">{{ plant['plantName']
+                            }}</span>
+                        <span class="popular-price">${{
+                            "%.2f"|format(plant['price']) }}</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="popular-section ">
+    <div class="popular-container">
+        <div class="featured-header">
+            <h2>Running Out Soon!</h2>
+        </div>
+
+        <div class="popular-scroll-wrapper">
+            <div class="popular-scroll">
+                {% for plant in low_qty_plants %}
+                <a
+                    href="{{ url_for('views.detail', plant_id=plant['plantID']) }}"
+                    class="popular-card">
+                    <div class="popular-image">
+                        <img
+                            src="{{ url_for('static', filename='images/' + plant['imageUrl']) }}"
+                            alt="{{ plant['plantName'] }}">
+                    </div>
+                    <div class="popular-info">
+                        <span class="popular-name">{{ plant['plantName']
+                            }}</span>
+                        <span class="popular-price">${{
+                            "%.2f"|format(plant['price']) }}</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
 {% endblock %}
