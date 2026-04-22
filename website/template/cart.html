@@ -53,18 +53,18 @@
                             action="{{ url_for('views.update_cart', cart_item_id=item['cartItemID'], action='decrease') }}"
                             method="POST" style="margin: 0;">
                             <button type="submit" class="minus"
-                                style="font-size: 24px;">−</button>
+                                style="font-size: 24px; color:#003121;">−</button>
                         </form>
 
                         <span class="qty-value"
-                            style="font-size: 34px; border: none;">{{
+                            style="font-size: 34px; border: none; color:#003121;">{{
                             item['quantity'] }}</span>
 
                         <form
                             action="{{ url_for('views.update_cart', cart_item_id=item['cartItemID'], action='increase') }}"
                             method="POST" style="margin: 0;">
                             <button type="submit" class="plus"
-                                style="font-size: 24px;">+</button>
+                                style="font-size: 24px; color:#003121;">+</button>
                         </form>
 
                     </div>
