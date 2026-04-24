@@ -6,7 +6,7 @@ Follow these instructions to set up the environment, configure the database, and
 
 Ensure you have the following installed before proceeding:
 * **Python 3.8+**
-* **MySQL** (via phpMyAdmin or your preferred database manager)
+* **MySQL** (via phpMyAdmin or your preferred database manager) our project use **XAMPP** so make sure you have that installed.
 * **Git** (optional, for cloning the repository)
 
 ---
