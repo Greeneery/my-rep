@@ -60,7 +60,8 @@ pip install uv
 
 1. Open **phpMyAdmin** (or your MySQL interface).
 2. Create a new database named **`greenery`**.
-3. Open an SQL query window on the new `greenery` database and execute the following queries to populate the initial categories and plant data:
+3. Then you should be able to run the project then all the the tables will be created via **create_tables.sql** file. Now you can move to step 4 to insert the data into the database.
+4. Open an SQL query window on the new `greenery` database and execute the following queries to populate the initial categories and plant data:
 
 ```sql
 INSERT INTO Categories (categoryID, categoryName, description) VALUES
