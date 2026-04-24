@@ -38,6 +38,29 @@ implementation = CPython
 prompt = greenery-project
 uv = 0.9.5
 ```
+It should look like this:
+1. Before:
+```bash
+home = C:\Users\USER\AppData\Local\Programs\Python\Python312
+include-system-site-packages = false
+version = 3.12.8
+executable = C:\Users\USER\AppData\Local\Programs\Python\Python312\python.exe
+command = C:\Users\USER\AppData\Local\Programs\Python\Python312\python.exe -m venv E:\Downloads\New folder (4)\my-rep.venv
+```
+2. After:
+```bash
+home = C:\Users\USER\AppData\Local\Programs\Python\Python312
+include-system-site-packages = false
+version = 3.14.0
+implementation = CPython
+prompt = greenery-project
+uv = 0.9.5
+```   
+Note: this line 
+```bash
+home = C:\Users\USER\AppData\Local\Programs\Python\Python312
+```
+is different based on the python file in your computer, so it might not look like mine.
 
 ---
 
